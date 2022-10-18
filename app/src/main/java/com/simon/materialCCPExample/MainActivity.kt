@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -76,20 +77,23 @@ fun SelectCountryWithCountryCode() {
             defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = MaterialTheme.colorScheme.primary,
-            dialogAppBarTextColor = Color.Black,
             dialogAppBarColor = Color.White,
-            error = isValidPhone,
+            error = !isValidPhone,
             text = phoneNumber.value,
             onValueChange = { phoneNumber.value = it },
             surfaceColor = MaterialTheme.colorScheme.surface,
-            appbariconsTint = MaterialTheme.colorScheme.primary,
             searchFieldPlaceHolderTextColor = Color.Gray,
             searchFieldBackgroundColor = MaterialTheme.colorScheme.secondaryContainer,
             textFieldShapeCornerRadiusInPercentage = 40,
             searchFieldTextColor = MaterialTheme.colorScheme.onSurface,
             searchFieldShapeCornerRadiusInPercentage = 40,
-            countryTextColor = MaterialTheme.colorScheme.onSurface,
-            countryCodeTextColor = MaterialTheme.colorScheme.onBackground
+            countryTextColor = MaterialTheme.colorScheme.onPrimary,
+            countryCodeTextColor = MaterialTheme.colorScheme.onBackground,
+            appbartitleStyle = MaterialTheme.typography.titleLarge,
+            countryItemBgShape = RoundedCornerShape(20.dp),
+            showCountryFlag = true,
+            showCountryCode = true,
+            countryItemBgColor = MaterialTheme.colorScheme.primary
         )
 
         val fullPhoneNumber = "$phoneCode${phoneNumber.value}"

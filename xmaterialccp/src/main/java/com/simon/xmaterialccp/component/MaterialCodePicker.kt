@@ -1,5 +1,6 @@
 package com.simon.xmaterialccp.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,23 +12,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -42,13 +43,28 @@ import com.simon.xmaterialccp.utils.searchCountry
 import com.simon.xmaterialccp.R
 
 class MaterialCodePicker {
-    @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class,
+        ExperimentalFoundationApi::class
+    )
     @Composable
     fun MaterialCodeDialog(
         modifier: Modifier = Modifier,
         padding: Dp = 15.dp,
         defaultSelectedCountry: CountryData = getLibCountries().first(),
+        /**
+         * If the country code should be shown or just show flag
+         *
+         */
         showCountryCode: Boolean = true,
+        /**
+         * If the country flag should be shown or just show code
+         *
+         */
+        showCountryFlag: Boolean = true,
+        /**
+         * The color to be used as surface background for the country lazy column
+         *
+         */
         surfaceColor:Color = MaterialTheme.colorScheme.surface,
         countryTextColor:Color = MaterialTheme.colorScheme.onBackground,
         countryCodeTextColor:Color = MaterialTheme.colorScheme.onBackground,
@@ -56,12 +72,28 @@ class MaterialCodePicker {
         searchFieldTextColor:Color = MaterialTheme.colorScheme.onBackground,
         searchFieldBackgroundColor:Color = MaterialTheme.colorScheme.background.copy(0.7f),
         searchFieldShapeCornerRadiusInPercentage:Int = 50,
-        iconsTint:Color = MaterialTheme.colorScheme.onBackground,
         pickedCountry: (CountryData) -> Unit,
+        /**
+         * The color to be used for a row in the lazy column
+         *
+         */
+        countryItemBgColor:Color = Color.Unspecified,
+
+        countryItemVerticalPadding:Dp = 8.dp,
+        /**
+         * The shhape to be used for a row in the lazy column
+         *
+         */
+        countryItemBgShape:RoundedCornerShape = RoundedCornerShape(0.dp),
         cursorColor: Color = MaterialTheme.colorScheme.primary,
         dialogAppBarColor: Color = MaterialTheme.colorScheme.primary,
-        dialogAppBarTextColor: Color = Color.White,
-        countryCodeFontSize:TextUnit = 16.sp
+        dialogNavIconColor: Color = MaterialTheme.colorScheme.onPrimary,
+        appbartitleStyle :TextStyle = MaterialTheme.typography.titleLarge,
+        /**
+         * The horizontal space between country item and parent bounds
+         *
+         */
+        countryItemHorizontalPadding: Dp = 8.dp,
     ) {
         val countryList: List<CountryData> = getLibCountries()
         var isPickCountry by remember { mutableStateOf(defaultSelectedCountry) }
@@ -83,6 +115,7 @@ class MaterialCodePicker {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                if(showCountryFlag)
                 Image(
                     modifier = modifier.width(34.dp),
                     painter = painterResource(
@@ -115,172 +148,190 @@ class MaterialCodePicker {
                     topBar = {
                         TopAppBar(
                             title = {
-                                if (!isSearch) {
-                                    Text(
-                                        text = stringResource(id = R.string.select_country),
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier.fillMaxWidth()
-                                    )
-                                } else {
-                                    SearchTextField(
-                                        value = searchValue,
-                                        onValueChange = { searchValue = it },
-                                        textColor = searchFieldTextColor,
-                                        leadingIcon = {
-                                            Icon(
-                                                Icons.Filled.Search,
-                                                null,
-                                                tint = searchFieldPlaceHolderTextColor,
-                                                modifier = Modifier.padding(horizontal = 3.dp),
-                                            )
-                                        },
-                                        cursorColor = cursorColor,
-                                        hintextColor = searchFieldPlaceHolderTextColor,
-                                        trailingIcon = null,
-                                        modifier = Modifier
-                                            .background(
-                                                searchFieldBackgroundColor,
-                                                RoundedCornerShape(searchFieldShapeCornerRadiusInPercentage)
-                                            )
-                                            .height(40.dp),
-                                        fontSize = countryCodeFontSize,
-                                    )
-                                }
-                            },
+                                Text(text = "Select country/region",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    textAlign = TextAlign.Center,
+                                    style = appbartitleStyle)
+                                },
                             navigationIcon = {
                                 IconButton(onClick = {
                                     isOpenDialog = false
                                     searchValue = ""
-                                    isSearch = false
-                                }) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.ArrowBack,
-                                        contentDescription = "Back",
-                                        tint = iconsTint
-                                    )
+                                    isSearch = false },) {
+                                    Icon(imageVector = Icons.Default.Close, contentDescription = "close",
+                                        tint = dialogNavIconColor)
                                 }
                             },
                             colors = TopAppBarDefaults.mediumTopAppBarColors(
                                 containerColor =dialogAppBarColor ,
-                                titleContentColor = dialogAppBarTextColor,
-                                actionIconContentColor = iconsTint
                             ),
-                            actions = {
-                                IconButton(onClick = {
-                                    isSearch = !isSearch
-                                }) {
-                                    Icon(
-                                        imageVector = if(isSearch) Icons.Rounded.Close else Icons.Rounded.Search,
-                                        contentDescription = "Search/Cancel",
-                                        tint = iconsTint
-                                    )
-                                }
-                            }
                         )
                     }
                 ) {
-                    it.calculateTopPadding()
-                    Surface(modifier = modifier.fillMaxSize().background(surfaceColor)) {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-                        ) {
-                            Column {
-                                LazyColumn {
-                                    items(
-                                        (if (searchValue.isEmpty()) {
-                                            countryList
-                                        } else {
-                                            countryList.searchCountry(
-                                                searchValue,
-                                                context = context
-                                            )
-                                        })
-                                    ) { countryItem ->
-                                        Row(
-                                            Modifier
-                                                .padding(
-                                                    horizontal = 18.dp,
-                                                    vertical = 18.dp
+                    Surface(modifier = modifier
+                        .fillMaxSize()
+                        .padding(top = it.calculateTopPadding())
+                        .background(surfaceColor)){
+
+                        Column() {
+
+                            //searchField
+                            Row(verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(10.dp)) {
+
+                                SearchTextField(
+                                    value = searchValue,
+                                    onValueChange = { searchValue = it },
+                                    textColor = searchFieldTextColor,
+                                    hint = stringResource(id = R.string.search),
+                                    cursorColor = cursorColor,
+                                    hintextColor = searchFieldPlaceHolderTextColor,
+                                    trailingIcon = {
+                                        if (searchValue.isNotEmpty())
+                                            IconButton(onClick ={
+                                                searchValue = ""
+                                            }, modifier = Modifier.padding(horizontal = 5.dp) ) {
+                                                Icon(
+                                                    imageVector = Icons.Filled.Clear,
+                                                    contentDescription = null,
+                                                    tint = searchFieldPlaceHolderTextColor
                                                 )
-                                                .fillMaxWidth()
-                                                .clickable {
-                                                    pickedCountry(countryItem)
-                                                    isPickCountry = countryItem
-                                                    isOpenDialog = false
-                                                    searchValue = ""
-                                                    isSearch = false
-                                                },
-                                            horizontalArrangement = Arrangement.Start,
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Image(
-                                                modifier = modifier.width(30.dp),
-                                                painter = painterResource(
-                                                    id = getFlags(
-                                                        countryItem.countryCode
-                                                    )
-                                                ), contentDescription = null
+                                            }
+                                        else null
+                                    },
+                                    modifier = Modifier
+                                        .background(
+                                            searchFieldBackgroundColor,
+                                            RoundedCornerShape(
+                                                searchFieldShapeCornerRadiusInPercentage
                                             )
-                                            Text(
-                                                text =stringResource(id = getCountryName(countryItem.countryCode.lowercase())),
-                                                color = countryTextColor,
-                                                modifier =Modifier.padding(horizontal = 18.dp)
+                                        )
+                                        .fillMaxWidth()
+                                        .height(40.dp),
+                                    fontSize = 16.sp,
+                                )
+                                
+                            }
+
+
+
+                            //lazy column
+                            LazyColumn {
+                                items(
+                                    (if (searchValue.isEmpty()) {
+                                        countryList
+                                    } else {
+                                        countryList.searchCountry(
+                                            searchValue,
+                                            context = context
+                                        )
+                                    }),
+                                    key = {it.countryCode}
+                                ) { countryItem ->
+                                    Row(
+                                        Modifier
+                                            .padding(
+                                                vertical = countryItemVerticalPadding,
+                                                horizontal = countryItemHorizontalPadding
                                             )
-                                        }
+                                            .background(
+                                                color = countryItemBgColor,
+                                                shape = countryItemBgShape
+                                            )
+                                            .animateItemPlacement(
+                                            )
+                                            .fillMaxWidth()
+                                            .wrapContentHeight()
+                                            .padding(10.dp)
+                                            .clickable {
+                                                pickedCountry(countryItem)
+                                                isPickCountry = countryItem
+                                                isOpenDialog = false
+                                                searchValue = ""
+                                                isSearch = false
+                                            },
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Image(
+                                            modifier = modifier.width(30.dp),
+                                            painter = painterResource(
+                                                id = getFlags(
+                                                    countryItem.countryCode
+                                                )
+                                            ), contentDescription = null
+                                        )
+                                        Text(
+                                            text =stringResource(id = getCountryName(countryItem.countryCode.lowercase())),
+                                            color = countryTextColor,
+                                            maxLines = 1,
+                                            textAlign = TextAlign.Start,
+                                            overflow = TextOverflow.Ellipsis,
+                                            modifier =Modifier.widthIn(200.dp)
+                                        )
+
+                                        Text(
+                                            text =countryItem.countryPhoneCode,
+                                            color = countryTextColor,
+                                        )
                                     }
                                 }
                             }
+
                         }
+
                     }
                 }
             }
         }
     }
 
-    @Composable
-    private fun SearchTextField(
-        modifier: Modifier = Modifier,
-        leadingIcon: (@Composable () -> Unit)? = null,
-        trailingIcon: (@Composable () -> Unit)? = null,
-        value: String,
-        textColor: Color = Color.Black,
-        hintextColor: Color = Color.Black,
-        onValueChange: (String) -> Unit,
-        hint: String = stringResource(id = R.string.search),
-        cursorColor: Color,
-        fontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize
-    ) {
-        BasicTextField(modifier = modifier
-            .fillMaxWidth(),
-            value = value,
-            onValueChange = onValueChange,
-            singleLine = true,
-            cursorBrush = SolidColor(cursorColor),
-            textStyle = LocalTextStyle.current.copy(
-                color = textColor,
-                fontSize = fontSize
-            ),
-            decorationBox = { innerTextField ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    if (leadingIcon != null) leadingIcon()
-                    Box(Modifier.weight(1f)) {
-                        if (value.isEmpty()) Text(
-                            hint,
-                            style = LocalTextStyle.current.copy(
-                                color = hintextColor,
-                                fontSize = fontSize
-                            )
+
+
+
+@Composable
+private fun SearchTextField(
+    modifier: Modifier = Modifier,
+    leadingIcon: (@Composable () -> Unit)? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
+    value: String,
+    textColor: Color = Color.Black,
+    hintextColor: Color = Color.Black,
+    onValueChange: (String) -> Unit,
+    hint: String = stringResource(id = R.string.search),
+    cursorColor: Color,
+    fontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize
+) {
+    BasicTextField(modifier = modifier
+        ,
+        value = value,
+        onValueChange = onValueChange,
+        singleLine = true,
+        cursorBrush = SolidColor(cursorColor),
+        textStyle = LocalTextStyle.current.copy(
+            color = textColor,
+            fontSize = fontSize
+        ),
+        decorationBox = { innerTextField ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(horizontal = 10.dp)
+            ) {
+                if (leadingIcon != null) leadingIcon()
+                Box(Modifier.weight(1f)) {
+                    if (value.isEmpty()) Text(
+                        hint,
+                        modifier = Modifier.padding(start = 5.dp),
+                        style = LocalTextStyle.current.copy(
+                            color = hintextColor,
+                            fontSize = fontSize
                         )
-                        innerTextField()
-                    }
-                    if (trailingIcon != null) trailingIcon()
+                    )
+                    innerTextField()
                 }
+                if (trailingIcon != null) trailingIcon()
             }
-        )
-    }
+        }
+    )
+}
 }
