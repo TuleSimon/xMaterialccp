@@ -4,6 +4,9 @@ plugins {
     id 'maven-publish'
 }
 
+group = 'com.github.TuleSimon'
+version = '1.01'
+
 android {
     namespace 'com.simon.xmaterialccp'
     compileSdk 33
@@ -15,6 +18,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
+    defaultConfig {
+        aarMetadata {
+            minCompileSdk = 21
+        }
+    }
+
     buildFeatures {
         compose true
     }
@@ -35,6 +44,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 
 }
 
@@ -58,12 +68,12 @@ dependencies {
 
 afterEvaluate {
     publishing {
-        publications({
+           publications({
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.simon'
-                artifactId = 'jxmaterialccp'
-                version = '1.0'
+                groupId = 'com.github.TuleSimon'
+                artifactId = 'xmaterialccp'
+                version = '1.01'
             }
         })
     }

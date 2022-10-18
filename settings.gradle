@@ -10,9 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 rootProject.name = "MaterialCCPExample"
 include ':app'
-include ':material3ccp'
 include ':xmaterialccp'
