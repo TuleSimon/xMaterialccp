@@ -90,10 +90,10 @@ fun SelectCountryWithCountryCode() {
             countryTextColor = MaterialTheme.colorScheme.onPrimary,
             countryCodeTextColor = MaterialTheme.colorScheme.onBackground,
             appbartitleStyle = MaterialTheme.typography.titleLarge,
-            countryItemBgShape = RoundedCornerShape(20.dp),
+            countryItemBgShape = RoundedCornerShape(5.dp),
             showCountryFlag = true,
             showCountryCode = true,
-            countryItemBgColor = MaterialTheme.colorScheme.primary
+            countryItemBgColor = MaterialTheme.colorScheme.secondaryContainer
         )
 
         val fullPhoneNumber = "$phoneCode${phoneNumber.value}"
