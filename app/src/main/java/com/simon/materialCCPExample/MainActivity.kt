@@ -84,7 +84,7 @@ fun SelectCountryWithCountryCode() {
             text = phoneNumber.value,
             onValueChange = { phoneNumber.value = it },
             surfaceColor = MaterialTheme.colorScheme.surface,
-            searchFieldPlaceHolderTextStyle = MaterialTheme.typography.bodyMedium,
+            searchFieldPlaceHolderTextStyle = MaterialTheme.typography.titleLarge.copy(color = Color.Green),
             searchFieldTextStyle = MaterialTheme.typography.bodyMedium,
             phonenumbertextstyle =  MaterialTheme.typography.bodyMedium,
             countrytextstyle =  MaterialTheme.typography.bodyMedium,

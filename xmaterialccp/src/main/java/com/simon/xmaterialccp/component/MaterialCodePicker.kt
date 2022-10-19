@@ -55,7 +55,6 @@ class MaterialCodePicker {
         showCountryFlag: Boolean = true,
         surfaceColor:Color = MaterialTheme.colorScheme.surface,
         searchFieldPlaceHolderTextColor:Color = MaterialTheme.colorScheme.onBackground,
-        searchFieldTextColor:Color = MaterialTheme.colorScheme.onBackground,
         searchFieldBackgroundColor:Color = MaterialTheme.colorScheme.background.copy(0.7f),
         searchFieldShapeCornerRadiusInPercentage:Int = 50,
         pickedCountry: (CountryData) -> Unit,
@@ -122,7 +121,6 @@ class MaterialCodePicker {
                 if (showCountryCode) {
                     Text(
                         text = isPickCountry.countryPhoneCode,
-                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = 3.dp,
                          end =    if(showDropDownAfterFlag)  3.dp else 0.dp),
                         style = countrycodetextstyle

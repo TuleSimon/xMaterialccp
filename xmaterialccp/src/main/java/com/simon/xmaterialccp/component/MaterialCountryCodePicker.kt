@@ -52,6 +52,7 @@ import com.simon.xmaterialccp.R
  * @param countryItemBgColor The background color of the country item in the lazy column
  * @param countryItemBgShape The shape to be used for a row in the lazy column
  * @param phonenumbertextstyle the textstyle for the phone number on the textfield
+ * @param phonehintnumbertextstyle the textstyle for the phone number hint on the textfield
  * @param searchFieldPlaceHolderTextStyle the placeholder on the searchfield text style
  * @param searchFieldTextStyle the search textfield text style
  * @param errorTextStyle the style to be used for the error text
@@ -84,6 +85,7 @@ fun MaterialCountryCodePicker(
     countryItemBgColor:Color = Color.Unspecified,
     countryItemBgShape:RoundedCornerShape = RoundedCornerShape(0.dp),
     phonenumbertextstyle:TextStyle = MaterialTheme.typography.bodyMedium,
+    phonehintnumbertextstyle:TextStyle = MaterialTheme.typography.bodyMedium,
     searchFieldPlaceHolderTextStyle:TextStyle = MaterialTheme.typography.bodyMedium,
     searchFieldTextStyle:TextStyle = MaterialTheme.typography.bodyMedium,
     searchFieldBackgroundColor:Color = MaterialTheme.colorScheme.background.copy(0.7f),
@@ -135,7 +137,8 @@ fun MaterialCountryCodePicker(
                 },
                 singleLine = true,
                 visualTransformation = PhoneNumberTransformation(defaultCountry.countryCode.uppercase()),
-                placeholder = { Text(text = stringResource(id = getNumberHint(defaultCountry.countryCode))) },
+                placeholder = { Text( style= phonehintnumbertextstyle,
+                    text = stringResource(id = getNumberHint(defaultCountry.countryCode))) },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.NumberPassword,
                     autoCorrect = true,
@@ -167,7 +170,7 @@ fun MaterialCountryCodePicker(
                                 showCountryCodeInDIalog = showCountryCodeInDIalog,
                                 countrycodetextstyle = countrycodetextstyle,
                                 showDropDownAfterFlag =     showDropDownAfterFlag,
-                                dropDownIconTInt = dropDownIconTInt
+                                dropDownIconTInt = dropDownIconTInt,
                             )
                         }
 
