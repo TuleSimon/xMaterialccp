@@ -78,7 +78,7 @@ class MaterialCodePicker {
         dropDownIconTInt:Color = MaterialTheme.colorScheme.onBackground,
         searchFieldPlaceHolderTextStyle:TextStyle = MaterialTheme.typography.bodyMedium,
         searchFieldTextStyle:TextStyle = MaterialTheme.typography.bodyMedium,
-
+        isEnabled:Boolean = true,
         ) {
         val countryList: List<CountryData> = getLibCountries()
         var isPickCountry by remember { mutableStateOf(defaultSelectedCountry) }
@@ -94,7 +94,7 @@ class MaterialCodePicker {
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null
-                ) { isOpenDialog = true },
+                ) { if(isEnabled)isOpenDialog = true } ,
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
