@@ -64,6 +64,7 @@ import com.simon.xmaterialccp.R
  * @param countryItemVerticalPadding the vertical padding for the country item on the lazy column
  * @param countryItemHorizontalPadding the horizontal padding for the country item on the lazy column
  * @param isEnabled to make the cccp to be enabled or disabled, if disabled the ccp can not be edited
+ * @param isReadOnly to make the textfield to be enabled or disabled, if disabled the ccp can not be edited
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -103,7 +104,8 @@ fun MaterialCountryCodePicker(
     countrycodetextstyle:TextStyle = MaterialTheme.typography.bodyMedium,
     showDropDownAfterFlag:Boolean = false,
     dropDownIconTInt:Color = MaterialTheme.colorScheme.onBackground,
-    isEnabled:Boolean = true
+    isEnabled:Boolean = true,
+    isReadOnly:Boolean = false
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
     val textFieldValue = textFieldValueState.copy(text = text)
@@ -137,7 +139,7 @@ fun MaterialCountryCodePicker(
                         onValueChange(it.text)
                     }
                 },
-                readOnly = isEnabled,
+                readOnly = isReadOnly,
                 singleLine = true,
                 visualTransformation = PhoneNumberTransformation(defaultCountry.countryCode.uppercase()),
                 placeholder = { Text( style= phonehintnumbertextstyle,
