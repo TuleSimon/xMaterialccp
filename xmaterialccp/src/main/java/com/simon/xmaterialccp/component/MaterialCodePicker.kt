@@ -171,8 +171,8 @@ class MaterialCodePicker {
             ) {
                 Surface(modifier = modifier
                     .fillMaxSize()
-                    .padding(top = it.calculateTopPadding())
-                    .background(surfaceColor)){
+                    .padding(top = it.calculateTopPadding()),
+                    color = surfaceColor){
 
                     Column() {
 
