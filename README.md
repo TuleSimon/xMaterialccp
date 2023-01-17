@@ -5,11 +5,11 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.10">V1.10</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.11">V1.11</a>
 
-## WHAT IS NEW (v1.10)
-* added isEnabled parameter to disabled ccp
-* Updated compose version
+## WHAT IS NEW (v1.11)
+* added isReadonly Propery
+* added color for surface, to change background of drop down
 
 # CREDIT
 This project was forked from <a href="https://github.com/togisoft/jetpack_compose_country_code_picker">togisoft</a>,
