@@ -126,12 +126,11 @@ fun MaterialCountryCodePicker(
                     .clipToBounds(),
                 shape = RoundedCornerShape(textFieldShapeCornerRadiusInPercentage),
                 value = textFieldValue,
-                textStyle =  phonenumbertextstyle,
+                textStyle =  phonenumbertextstyle.copy(color = phonenumbertextstyle.color),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = if (error) Color.Red else focusedBorderColor,
                     unfocusedBorderColor = if (error) Color.Red else unfocusedBorderColor,
                     cursorColor = cursorColor,
-                    textColor = phonenumbertextstyle.color
                 ),
                 onValueChange = {
                     textFieldValueState = it

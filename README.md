@@ -5,11 +5,10 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.11">V1.11</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.12">V1.12</a>
 
-## WHAT IS NEW (v1.11)
-* added isReadonly Propery
-* added color for surface, to change background of drop down
+## WHAT IS NEW (v1.12)
+* update compose version, and android kotlin version
 
 # CREDIT
 This project was forked from <a href="https://github.com/togisoft/jetpack_compose_country_code_picker">togisoft</a>,
