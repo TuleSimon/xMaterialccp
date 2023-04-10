@@ -21,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.simon.materialCCPExample.ui.theme.MaterialCCPExampleTheme
 import com.simon.xmaterialccp.component.MaterialCountryCodePicker
+import com.simon.xmaterialccp.data.CCPColors
+import com.simon.xmaterialccp.data.ccpDefaultColors
 import com.simon.xmaterialccp.data.utils.checkPhoneNumber
 import com.simon.xmaterialccp.data.utils.getDefaultLangCode
 import com.simon.xmaterialccp.data.utils.getDefaultPhoneCode
@@ -77,14 +79,10 @@ fun SelectCountryWithCountryCode() {
                 defaultLang = it.countryCode
             },
             defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
-            focusedBorderColor = MaterialTheme.colorScheme.primary,
-            unfocusedBorderColor = MaterialTheme.colorScheme.primary,
-            dialogAppBarColor = Color.White,
             error = !isValidPhone,
             text = phoneNumber.value,
             onValueChange = { phoneNumber.value = it },
-            surfaceColor = MaterialTheme.colorScheme.surface,
-            searchFieldPlaceHolderTextStyle = MaterialTheme.typography.titleLarge.copy(color = Color.Green),
+            searchFieldPlaceHolderTextStyle = MaterialTheme.typography.bodyMedium,
             searchFieldTextStyle = MaterialTheme.typography.bodyMedium,
             phonenumbertextstyle =  MaterialTheme.typography.bodyMedium,
             countrytextstyle =  MaterialTheme.typography.bodyMedium,
@@ -92,14 +90,30 @@ fun SelectCountryWithCountryCode() {
             showErrorText = true,
             showCountryCodeInDIalog = true,
             showDropDownAfterFlag = true,
-            searchFieldBackgroundColor = MaterialTheme.colorScheme.secondaryContainer,
             textFieldShapeCornerRadiusInPercentage = 40,
             searchFieldShapeCornerRadiusInPercentage = 40,
             appbartitleStyle = MaterialTheme.typography.titleLarge,
             countryItemBgShape = RoundedCornerShape(5.dp),
             showCountryFlag = true,
             showCountryCode = true,
-            countryItemBgColor = MaterialTheme.colorScheme.secondaryContainer
+            isEnabled = true,
+            colors  = ccpDefaultColors(
+                primaryColor =MaterialTheme.colorScheme.primary,
+                errorColor =MaterialTheme.colorScheme.error,
+                backgroundColor =MaterialTheme.colorScheme.background,
+                surfaceColor =MaterialTheme.colorScheme.surface,
+                outlineColor =MaterialTheme.colorScheme.outline,
+                disabledOutlineColor =MaterialTheme.colorScheme.outline.copy(0.1f),
+                unfocusedOutlineColor =MaterialTheme.colorScheme.onBackground.copy(0.3f),
+                textColor =MaterialTheme.colorScheme.onBackground.copy(0.7f),
+                cursorColor =MaterialTheme.colorScheme.primary,
+                topAppBarColor =MaterialTheme.colorScheme.surface,
+                countryItemBgColor =MaterialTheme.colorScheme.surface,
+                searchFieldBgColor =MaterialTheme.colorScheme.surface,
+                dialogNavIconColor =MaterialTheme.colorScheme.onBackground.copy(0.7f),
+                dropDownIconTint =MaterialTheme.colorScheme.onBackground.copy(0.7f)
+
+            )
         )
 
         val fullPhoneNumber = "$phoneCode${phoneNumber.value}"
