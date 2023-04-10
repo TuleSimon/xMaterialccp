@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.github.TuleSimon'
-version = '1.12'
+version = 'v1.13'
 
 android {
     namespace 'com.simon.xmaterialccp'
@@ -53,8 +53,8 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.compose.material3:material3:1.1.0-alpha07'
@@ -74,7 +74,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.TuleSimon'
                 artifactId = 'xMaterialccp'
-                version = '1.12'
+                version = 'v1.13'
             }
         })
     }
