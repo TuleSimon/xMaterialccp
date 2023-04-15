@@ -12,12 +12,18 @@ fun getDefaultLangCode(context: Context): String {
         context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
     val countryCode = localeCode.networkCountryIso
     val defaultLocale = Locale.current.language
-    return countryCode.ifBlank { defaultLocale }
+    return countryCode?.ifBlank { defaultLocale }?:defaultLocale
 }
 
 fun getDefaultPhoneCode(context: Context): String {
     val defaultCountry = getDefaultLangCode(context)
-    val defaultCode: CountryData = getLibCountries().first() { it.countryCode == defaultCountry }
+    val defaultCode: CountryData =try {
+        getLibCountries().first() { it.countryCode == defaultCountry }
+    }
+    catch(e:NoSuchElementException ){
+        e.printStackTrace()
+        getLibCountries()[12]
+    }
     return defaultCode.countryPhoneCode.ifBlank { "+90" }
 }
 
