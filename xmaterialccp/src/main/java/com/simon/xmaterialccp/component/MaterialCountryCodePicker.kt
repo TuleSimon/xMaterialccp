@@ -10,10 +10,12 @@ import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -59,7 +61,7 @@ import com.simon.xmaterialccp.data.CCPColors
  * @param isReadOnly to make the textfield to be enabled or disabled, if disabled the ccp can not be edited
  * @param colors the colors of the picker, customized the look and feel of the picker
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun MaterialCountryCodePicker(
     text: String,
@@ -90,11 +92,12 @@ fun MaterialCountryCodePicker(
     showDropDownAfterFlag: Boolean = false,
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
-    colors:CCPColors
+    colors: CCPColors
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
     val textFieldValue = textFieldValueState.copy(text = text)
-    val keyboardController = LocalTextInputService.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
 
     Column {
         Row(
@@ -113,9 +116,9 @@ fun MaterialCountryCodePicker(
                 value = textFieldValue,
                 textStyle = phonenumbertextstyle,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = if (error) Color.Red else if (isEnabled) colors.outlineColor
+                    focusedBorderColor = if (error) colors.errorColor else if (isEnabled) colors.outlineColor
                     else colors.unfocusedOutlineColor,
-                    unfocusedBorderColor = if (error) Color.Red else colors.unfocusedOutlineColor,
+                    unfocusedBorderColor = if (error) colors.errorColor else colors.unfocusedOutlineColor,
                     cursorColor = colors.cursorColor,
                     containerColor = colors.surfaceColor
                 ),
@@ -139,7 +142,7 @@ fun MaterialCountryCodePicker(
                     keyboardType = KeyboardType.NumberPassword,
                     autoCorrect = true,
                 ),
-                keyboardActions = KeyboardActions(onDone = { keyboardController?.hideSoftwareKeyboard() }),
+                keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                 leadingIcon = {
                     Column(modifier = Modifier.padding(flagPadding)) {
                         val dialog = MaterialCodePicker()
@@ -160,7 +163,7 @@ fun MaterialCountryCodePicker(
                             showCountryCodeInDIalog = showCountryCodeInDIalog,
                             countrycodetextstyle = countrycodetextstyle,
                             showDropDownAfterFlag = showDropDownAfterFlag,
-                          colors = colors,
+                            colors = colors,
                             isEnabled = isEnabled,
                         )
                     }
@@ -171,7 +174,7 @@ fun MaterialCountryCodePicker(
                     if (error) {
                         Icon(
                             imageVector = Icons.Filled.Warning, contentDescription = "Error",
-                            tint = MaterialTheme.colorScheme.error
+                            tint =colors.errorColor
                         )
                     }
                 }
@@ -180,7 +183,7 @@ fun MaterialCountryCodePicker(
         if (error && showErrorText) {
             Text(
                 text = stringResource(id = R.string.invalid_number),
-                color = MaterialTheme.colorScheme.error,
+                color = colors.errorColor,
                 style = errorTextStyle,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 0.8.dp, start = 4.dp)
