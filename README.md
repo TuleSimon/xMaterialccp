@@ -5,12 +5,14 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.15">v1.15</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.16">v1.16</a>
 
-## WHAT IS NEW (v1.15)
+## WHAT IS NEW (v1.16)
 * update compose version, and android kotlin version
-* Added a new color feature
-* fix error colors
+* allow custom error icon
+* allow custom dropdown icon
+* allow hiding error icon
+* allow adding shape to flag
 
 # CREDIT
 This project was forked from <a href="https://github.com/togisoft/jetpack_compose_country_code_picker">togisoft</a>,
@@ -88,7 +90,11 @@ fun MaterialCountryCodePicker(
     countrycodetextstyle: TextStyle = MaterialTheme.typography.bodyMedium,
     showDropDownAfterFlag: Boolean = false,
     isEnabled: Boolean = true,
+    flagShape:CornerBasedShape = RoundedCornerShape(0.dp),
     isReadOnly: Boolean = false,
+    @DrawableRes errorIcon:Int?=null,
+    @DrawableRes dropDownIcon:Int?=null,
+    showErrorIcon:Boolean=true,
     colors:CCPColors
 )
 ```  
@@ -208,6 +214,10 @@ fun SelectCountryWithCountryCode() {
 * countryItemHorizontalPadding the horizontal padding for the country item on the lazy column
 * isEnabled to make the cccp to be enabled or disabled, if disabled the ccp can not be edited
 * isReadOnly to make the cccp to be readonly, if readonly ccp can not be edited
+* @DrawableRes errorIcon the icon to show if error occurs ,
+* @DrawableRes dropDownIcon the icon for drop down ,
+*  showErrorIcon if to show icon if an errror occurs,
+* flagShape to customize the shape of the flag
 * *** colors *** customized the colors of the picker
 
 
