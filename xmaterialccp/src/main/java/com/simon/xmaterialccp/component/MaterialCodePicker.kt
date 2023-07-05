@@ -1,5 +1,6 @@
 package com.simon.xmaterialccp.component
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,6 +9,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -20,8 +22,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -70,6 +75,8 @@ class MaterialCodePicker {
         searchFieldPlaceHolderTextStyle: TextStyle = MaterialTheme.typography.bodyMedium,
         searchFieldTextStyle: TextStyle = MaterialTheme.typography.bodyMedium,
         isEnabled: Boolean = true,
+        @DrawableRes dropDownIcon: Int? = null,
+        flagShape: CornerBasedShape = RoundedCornerShape(0.dp)
     ) {
         val countryList: List<CountryData> = getLibCountries()
         var isPickCountry by remember { mutableStateOf(defaultSelectedCountry) }
@@ -93,23 +100,37 @@ class MaterialCodePicker {
             ) {
                 if (showCountryFlag) {
                     Image(
-                        modifier = modifier.width(34.dp),
+                        modifier = modifier
+                            .width(26.dp)
+                            .background(shape = flagShape, color = Color.Transparent)
+                            .clip(flagShape)
+                            .clipToBounds(),
                         painter = painterResource(
                             id = getFlags(
                                 isPickCountry.countryCode
                             )
-                        ), contentDescription = null
+                        ),
+                        contentScale = ContentScale.FillBounds,
+                        contentDescription = null
                     )
                 }
                 if (showDropDownAfterFlag) {
                     IconButton(onClick = {
                         if (isEnabled) isOpenDialog = true
                     }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = "arrow down",
-                            tint = colors.dropDownIconTint
-                        )
+                        if (dropDownIcon == null) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = "arrow down",
+                                tint = colors.dropDownIconTint
+                            )
+                        } else {
+                            Icon(
+                                painterResource(id = dropDownIcon),
+                                contentDescription = "arrow down",
+                                tint = colors.dropDownIconTint
+                            )
+                        }
                     }
                 }
 
@@ -127,11 +148,19 @@ class MaterialCodePicker {
                     IconButton(onClick = {
                         if (isEnabled) isOpenDialog = true
                     }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = "arrow down",
-                            tint = colors.dropDownIconTint
-                        )
+                        if (dropDownIcon == null) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = "arrow down",
+                                tint = colors.dropDownIconTint
+                            )
+                        } else {
+                            Icon(
+                                painterResource(id = dropDownIcon),
+                                contentDescription = "arrow down",
+                                tint = colors.dropDownIconTint
+                            )
+                        }
                     }
                 }
             }

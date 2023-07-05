@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.github.TuleSimon'
-version = 'v1.15'
+version = 'v1.16'
 
 android {
     namespace 'com.simon.xmaterialccp'
@@ -74,7 +74,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.TuleSimon'
                 artifactId = 'xMaterialccp'
-                version = 'v1.15'
+                version = 'v1.16'
             }
         })
     }

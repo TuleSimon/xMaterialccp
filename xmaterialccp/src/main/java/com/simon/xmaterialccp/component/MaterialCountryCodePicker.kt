@@ -1,7 +1,9 @@
 package com.simon.xmaterialccp.component
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,6 +19,7 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalTextInputService
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -59,6 +62,9 @@ import com.simon.xmaterialccp.data.CCPColors
  * @param countryItemHorizontalPadding the horizontal padding for the country item on the lazy column
  * @param isEnabled to make the cccp to be enabled or disabled, if disabled the ccp can not be edited
  * @param isReadOnly to make the textfield to be enabled or disabled, if disabled the ccp can not be edited
+ * @param flagShape to customized the shape of the flag
+ * @param showErrorIcon whether to show the error icon
+ * @param errorIcon the drawable resource file to use as error icon
  * @param colors the colors of the picker, customized the look and feel of the picker
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -92,6 +98,10 @@ fun MaterialCountryCodePicker(
     showDropDownAfterFlag: Boolean = false,
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
+    flagShape: CornerBasedShape = RoundedCornerShape(0.dp),
+    @DrawableRes errorIcon:Int?=null ,
+    @DrawableRes dropDownIcon:Int?=null ,
+    showErrorIcon:Boolean=true,
     colors: CCPColors
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
@@ -164,6 +174,8 @@ fun MaterialCountryCodePicker(
                             countrycodetextstyle = countrycodetextstyle,
                             showDropDownAfterFlag = showDropDownAfterFlag,
                             colors = colors,
+                            dropDownIcon = dropDownIcon,
+                            flagShape = flagShape,
                             isEnabled = isEnabled,
                         )
                     }
@@ -171,11 +183,19 @@ fun MaterialCountryCodePicker(
 
                 },
                 trailingIcon = {
-                    if (error) {
-                        Icon(
-                            imageVector = Icons.Filled.Warning, contentDescription = "Error",
-                            tint =colors.errorColor
-                        )
+                    if (error && showErrorIcon) {
+                        if(errorIcon==null) {
+                            Icon(
+                                imageVector = Icons.Filled.Warning, contentDescription = "Error",
+                                tint = colors.errorColor
+                            )
+                        }
+                        else{
+                            Icon(
+                                painterResource(id = errorIcon) , contentDescription = "Error",
+                                tint = colors.errorColor
+                            )
+                        }
                     }
                 }
             )

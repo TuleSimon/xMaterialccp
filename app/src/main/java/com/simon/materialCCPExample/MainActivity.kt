@@ -61,7 +61,6 @@ fun SelectCountryBody() {
 }
 
 
-
 @Composable
 fun SelectCountryWithCountryCode() {
     val context = LocalContext.current
@@ -84,9 +83,9 @@ fun SelectCountryWithCountryCode() {
             onValueChange = { phoneNumber.value = it },
             searchFieldPlaceHolderTextStyle = MaterialTheme.typography.bodyMedium,
             searchFieldTextStyle = MaterialTheme.typography.bodyMedium,
-            phonenumbertextstyle =  MaterialTheme.typography.bodyMedium,
-            countrytextstyle =  MaterialTheme.typography.bodyMedium,
-            countrycodetextstyle =  MaterialTheme.typography.bodyMedium,
+            phonenumbertextstyle = MaterialTheme.typography.bodyMedium,
+            countrytextstyle = MaterialTheme.typography.bodyMedium,
+            countrycodetextstyle = MaterialTheme.typography.bodyMedium,
             showErrorText = true,
             showCountryCodeInDIalog = true,
             showDropDownAfterFlag = true,
@@ -96,22 +95,24 @@ fun SelectCountryWithCountryCode() {
             countryItemBgShape = RoundedCornerShape(5.dp),
             showCountryFlag = true,
             showCountryCode = true,
+            flagShape = RoundedCornerShape(10f),
             isEnabled = true,
-            colors  = ccpDefaultColors(
-                primaryColor =MaterialTheme.colorScheme.primary,
-                errorColor =MaterialTheme.colorScheme.error,
-                backgroundColor =MaterialTheme.colorScheme.background,
-                surfaceColor =MaterialTheme.colorScheme.surface,
-                outlineColor =MaterialTheme.colorScheme.outline,
-                disabledOutlineColor =MaterialTheme.colorScheme.outline.copy(0.1f),
-                unfocusedOutlineColor =MaterialTheme.colorScheme.onBackground.copy(0.3f),
-                textColor =MaterialTheme.colorScheme.onBackground.copy(0.7f),
-                cursorColor =MaterialTheme.colorScheme.primary,
-                topAppBarColor =MaterialTheme.colorScheme.surface,
-                countryItemBgColor =MaterialTheme.colorScheme.surface,
-                searchFieldBgColor =MaterialTheme.colorScheme.surface,
-                dialogNavIconColor =MaterialTheme.colorScheme.onBackground.copy(0.7f),
-                dropDownIconTint =MaterialTheme.colorScheme.onBackground.copy(0.7f)
+            showErrorIcon = false,
+            colors = ccpDefaultColors(
+                primaryColor = MaterialTheme.colorScheme.primary,
+                errorColor = MaterialTheme.colorScheme.error,
+                backgroundColor = MaterialTheme.colorScheme.background,
+                surfaceColor = MaterialTheme.colorScheme.surface,
+                outlineColor = MaterialTheme.colorScheme.outline,
+                disabledOutlineColor = MaterialTheme.colorScheme.outline.copy(0.1f),
+                unfocusedOutlineColor = MaterialTheme.colorScheme.onBackground.copy(0.3f),
+                textColor = MaterialTheme.colorScheme.onBackground.copy(0.7f),
+                cursorColor = MaterialTheme.colorScheme.primary,
+                topAppBarColor = MaterialTheme.colorScheme.surface,
+                countryItemBgColor = MaterialTheme.colorScheme.surface,
+                searchFieldBgColor = MaterialTheme.colorScheme.surface,
+                dialogNavIconColor = MaterialTheme.colorScheme.onBackground.copy(0.7f),
+                dropDownIconTint = MaterialTheme.colorScheme.onBackground.copy(0.7f)
 
             )
         )
@@ -137,7 +138,6 @@ fun SelectCountryWithCountryCode() {
         }
     }
 }
-
 
 
 @Composable
