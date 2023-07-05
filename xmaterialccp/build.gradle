@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.github.TuleSimon'
-version = 'v1.17'
+version = 'v1.19'
 
 android {
     namespace 'com.simon.xmaterialccp'
@@ -38,7 +38,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.2'
+        kotlinCompilerExtensionVersion '1.4.7'
     }
 
     kotlinOptions {
@@ -74,7 +74,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.TuleSimon'
                 artifactId = 'xMaterialccp'
-                version = 'v1.17'
+                version = 'v1.19'
             }
         })
     }

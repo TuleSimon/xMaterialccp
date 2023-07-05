@@ -5,9 +5,9 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.18">v1.18</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.19">v1.19</a>
 
-## WHAT IS NEW (v1.18)
+## WHAT IS NEW (v1.19)
 * update compose version, and android kotlin version
 * allow custom error icon
 * allow custom dropdown icon
