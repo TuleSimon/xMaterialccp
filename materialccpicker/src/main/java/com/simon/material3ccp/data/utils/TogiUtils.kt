@@ -11,7 +11,7 @@ fun getDefaultLangCode(context: Context): String {
     val localeCode: TelephonyManager =
         context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
     val countryCode = localeCode.networkCountryIso
-    val defaultLocale = Locale.current.language
+    val defaultLocale = Locale.current.region.lowercase(java.util.Locale.ENGLISH)
     return countryCode.ifBlank { defaultLocale }
 }
 
