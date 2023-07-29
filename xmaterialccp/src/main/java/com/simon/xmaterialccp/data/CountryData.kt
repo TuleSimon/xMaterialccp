@@ -5,7 +5,7 @@ import com.simon.xmaterialccp.R
 import java.util.*
 
 data class CountryData(
-    private var cCodes: String,
+    private val cCodes: String,
     val countryPhoneCode: String = "+90",
     val cNames:String = "tr",
     @DrawableRes val flagResID: Int = R.drawable.tr
