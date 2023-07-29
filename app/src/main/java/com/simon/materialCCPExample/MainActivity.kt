@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
@@ -123,16 +124,12 @@ fun SelectCountryWithCountryCode() {
             fullPhoneNumber = fullPhoneNumber,
             countryCode = defaultLang
         )
-        OutlinedButton(
+        Button(
             onClick = {
                 isValidPhone = checkPhoneNumber
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .height(
-                    50.dp
-                )
         ) {
             Text(text = "Phone Verify")
         }
