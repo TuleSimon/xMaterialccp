@@ -65,6 +65,8 @@ import com.simon.xmaterialccp.data.CCPColors
  * @param flagShape to customized the shape of the flag
  * @param showErrorIcon whether to show the error icon
  * @param errorIcon the drawable resource file to use as error icon
+ * @param errorText the text to show when an invalid number is entered
+ * @param errorModifier modifier applied to the error text
  * @param colors the colors of the picker, customized the look and feel of the picker
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -102,6 +104,8 @@ fun MaterialCountryCodePicker(
     @DrawableRes errorIcon:Int?=null ,
     @DrawableRes dropDownIcon:Int?=null ,
     showErrorIcon:Boolean=true,
+    errorText:String = stringResource(id = R.string.invalid_number),
+    errorModifier:Modifier = Modifier,
     colors: CCPColors
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
@@ -202,11 +206,10 @@ fun MaterialCountryCodePicker(
         }
         if (error && showErrorText) {
             Text(
-                text = stringResource(id = R.string.invalid_number),
+                text = errorText,
                 color = colors.errorColor,
                 style = errorTextStyle,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 0.8.dp, start = 4.dp)
+                modifier = errorModifier
             )
         }
     }

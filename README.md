@@ -5,9 +5,11 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.21">v1.21</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.22">v1.22</a>
 
-## WHAT IS NEW (v1.21)
+## WHAT IS NEW (v1.22)
+* added error modifier to customize error text
+* added errorText to pass your own dynamic error text
 * fix indian phone number hint
 * update compose version, and android kotlin version
 * allow custom error icon

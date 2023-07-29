@@ -3,15 +3,19 @@ package com.simon.materialCCPExample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -31,16 +35,27 @@ import com.simon.xmaterialccp.data.utils.getLibCountries
 
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialCCPExampleTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.White),
+                    topBar = {
+                        TopAppBar(title = { Text(text = "XMaterialCCP Demo") })
+                    }
                 ) {
-                    SelectCountryBody()
+                    SelectCountryBody(
+                        Modifier
+                            .padding(top = it.calculateTopPadding())
+                            .fillMaxSize()
+                            .padding(15.dp)
+                            .verticalScroll(rememberScrollState())
+                    )
                 }
             }
         }
@@ -48,11 +63,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SelectCountryBody() {
+fun SelectCountryBody(modifier: Modifier) {
     Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxSize(),
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -69,83 +82,68 @@ fun SelectCountryWithCountryCode() {
     val phoneNumber = rememberSaveable { mutableStateOf("") }
     var defaultLang by rememberSaveable { mutableStateOf(getDefaultLangCode(context)) }
     var isValidPhone by remember { mutableStateOf(true) }
-    Column(
-        modifier = Modifier.padding(16.dp)
+
+    MaterialCountryCodePicker(
+        pickedCountry = {
+            phoneCode = it.countryPhoneCode
+            defaultLang = it.countryCode
+        },
+        defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
+        error = !isValidPhone,
+        text = phoneNumber.value,
+        onValueChange = { phoneNumber.value = it },
+        searchFieldPlaceHolderTextStyle = MaterialTheme.typography.bodyMedium,
+        searchFieldTextStyle = MaterialTheme.typography.bodyMedium,
+        phonenumbertextstyle = MaterialTheme.typography.bodyMedium,
+        countrytextstyle = MaterialTheme.typography.bodyMedium,
+        countrycodetextstyle = MaterialTheme.typography.bodyMedium,
+        showErrorText = true,
+        showCountryCodeInDIalog = true,
+        showDropDownAfterFlag = true,
+        textFieldShapeCornerRadiusInPercentage = 40,
+        searchFieldShapeCornerRadiusInPercentage = 40,
+        appbartitleStyle = MaterialTheme.typography.titleLarge,
+        countryItemBgShape = RoundedCornerShape(5.dp),
+        showCountryFlag = true,
+        showCountryCode = true,
+        flagShape = RoundedCornerShape(10f),
+        isEnabled = true,
+        showErrorIcon = false,
+        colors = ccpDefaultColors(
+            primaryColor = MaterialTheme.colorScheme.primary,
+            errorColor = MaterialTheme.colorScheme.error,
+            backgroundColor = MaterialTheme.colorScheme.background,
+            surfaceColor = MaterialTheme.colorScheme.surface,
+            outlineColor = MaterialTheme.colorScheme.outline,
+            disabledOutlineColor = MaterialTheme.colorScheme.outline.copy(0.1f),
+            unfocusedOutlineColor = MaterialTheme.colorScheme.onBackground.copy(0.3f),
+            textColor = MaterialTheme.colorScheme.onBackground.copy(0.7f),
+            cursorColor = MaterialTheme.colorScheme.primary,
+            topAppBarColor = MaterialTheme.colorScheme.surface,
+            countryItemBgColor = MaterialTheme.colorScheme.surface,
+            searchFieldBgColor = MaterialTheme.colorScheme.surface,
+            dialogNavIconColor = MaterialTheme.colorScheme.onBackground.copy(0.7f),
+            dropDownIconTint = MaterialTheme.colorScheme.onBackground.copy(0.7f)
+
+        ),
+        errorTextStyle = MaterialTheme.typography.bodySmall,
+        errorModifier = Modifier.padding(top = 3.dp, start = 10.dp)
+    )
+
+    val fullPhoneNumber = "$phoneCode${phoneNumber.value}"
+    val checkPhoneNumber = checkPhoneNumber(
+        phone = phoneNumber.value,
+        fullPhoneNumber = fullPhoneNumber,
+        countryCode = defaultLang
+    )
+    Spacer(modifier = Modifier.height(20.dp))
+    Button(
+        onClick = {
+            isValidPhone = checkPhoneNumber
+        },
+        modifier = Modifier
+            .fillMaxWidth(0.8f)
     ) {
-
-        MaterialCountryCodePicker(
-            pickedCountry = {
-                phoneCode = it.countryPhoneCode
-                defaultLang = it.countryCode
-            },
-            defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
-            error = !isValidPhone,
-            text = phoneNumber.value,
-            onValueChange = { phoneNumber.value = it },
-            searchFieldPlaceHolderTextStyle = MaterialTheme.typography.bodyMedium,
-            searchFieldTextStyle = MaterialTheme.typography.bodyMedium,
-            phonenumbertextstyle = MaterialTheme.typography.bodyMedium,
-            countrytextstyle = MaterialTheme.typography.bodyMedium,
-            countrycodetextstyle = MaterialTheme.typography.bodyMedium,
-            showErrorText = true,
-            showCountryCodeInDIalog = true,
-            showDropDownAfterFlag = true,
-            textFieldShapeCornerRadiusInPercentage = 40,
-            searchFieldShapeCornerRadiusInPercentage = 40,
-            appbartitleStyle = MaterialTheme.typography.titleLarge,
-            countryItemBgShape = RoundedCornerShape(5.dp),
-            showCountryFlag = true,
-            showCountryCode = true,
-            flagShape = RoundedCornerShape(10f),
-            isEnabled = true,
-            showErrorIcon = false,
-            colors = ccpDefaultColors(
-                primaryColor = MaterialTheme.colorScheme.primary,
-                errorColor = MaterialTheme.colorScheme.error,
-                backgroundColor = MaterialTheme.colorScheme.background,
-                surfaceColor = MaterialTheme.colorScheme.surface,
-                outlineColor = MaterialTheme.colorScheme.outline,
-                disabledOutlineColor = MaterialTheme.colorScheme.outline.copy(0.1f),
-                unfocusedOutlineColor = MaterialTheme.colorScheme.onBackground.copy(0.3f),
-                textColor = MaterialTheme.colorScheme.onBackground.copy(0.7f),
-                cursorColor = MaterialTheme.colorScheme.primary,
-                topAppBarColor = MaterialTheme.colorScheme.surface,
-                countryItemBgColor = MaterialTheme.colorScheme.surface,
-                searchFieldBgColor = MaterialTheme.colorScheme.surface,
-                dialogNavIconColor = MaterialTheme.colorScheme.onBackground.copy(0.7f),
-                dropDownIconTint = MaterialTheme.colorScheme.onBackground.copy(0.7f)
-
-            )
-        )
-
-        val fullPhoneNumber = "$phoneCode${phoneNumber.value}"
-        val checkPhoneNumber = checkPhoneNumber(
-            phone = phoneNumber.value,
-            fullPhoneNumber = fullPhoneNumber,
-            countryCode = defaultLang
-        )
-        Button(
-            onClick = {
-                isValidPhone = checkPhoneNumber
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(text = "Phone Verify")
-        }
-    }
-}
-
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MaterialCCPExampleTheme {
-        Greeting("Android")
+        Text(text = "Phone Verify")
     }
 }
