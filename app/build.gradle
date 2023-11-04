@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.simon.materialCCPExample'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.simon.MaterialCCPExample"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -49,12 +49,21 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.10.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.activity:activity-compose:1.7.2'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    // Import the Compose BOM
+    implementation platform('androidx.compose:compose-bom:2023.10.01')
+
+    // Import Material Design 3 library
+    implementation 'androidx.compose.material3:material3:1.1.2'
+
+    // Import other Compose libraries without version numbers
+    // ..
+    implementation 'androidx.compose.foundation:foundation'
+    implementation 'androidx.activity:activity-compose:1.7.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.1.0-rc01'
+    implementation 'androidx.compose.material3:material3:1.1.2'
     implementation project(path: ':xmaterialccp')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
