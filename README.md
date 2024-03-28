@@ -10,6 +10,7 @@ The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/release
 ## WHAT IS NEW (v2.11)
 * Fixed keyboard bugs on new compose version
 * Updated compose version
+* Updated jdk version
 * added error modifier to customize error text
 
 # CREDIT
