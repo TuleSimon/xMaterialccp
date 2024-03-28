@@ -5,18 +5,12 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.1">v2.1</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.11">v2.11</a>
 
-## WHAT IS NEW (v2.1)
-*Updated compose version
+## WHAT IS NEW (v2.11)
+* Fixed keyboard bugs on new compose version
+* Updated compose version
 * added error modifier to customize error text
-* added errorText to pass your own dynamic error text
-* fix indian phone number hint
-* update compose version, and android kotlin version
-* allow custom error icon
-* allow custom dropdown icon
-* allow hiding error icon
-* allow adding shape to flag
 
 # CREDIT
 This project was forked from <a href="https://github.com/togisoft/jetpack_compose_country_code_picker">togisoft</a>,
@@ -241,7 +235,7 @@ Step 2. Add the dependency
 
 ```
   dependencies {
-	  implementation 'com.github.TuleSimon:xMaterialccp:$latest_version'
+	  implementation 'com.github.TuleSimon:xMaterialccp:v2.11'
 	}  
 ```    
 
