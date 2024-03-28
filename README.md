@@ -5,9 +5,9 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.23">v1.23</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v1.23">v2.0</a>
 
-## WHAT IS NEW (v1.23)
+## WHAT IS NEW (v2.0)
 *Updated compose version
 * added error modifier to customize error text
 * added errorText to pass your own dynamic error text

@@ -5,15 +5,15 @@ plugins {
 }
 
 group = 'com.github.TuleSimon'
-version = 'v1.23'
+version = 'v2.0'
 
 android {
     namespace 'com.simon.xmaterialccp'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 21
-        targetSdk 33
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -53,20 +53,20 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
     // Import the Compose BOM
     implementation platform('androidx.compose:compose-bom:2023.10.01')
 
     // Import Material Design 3 library
-    implementation 'androidx.compose.material3:material3:1.1.2'
+    implementation 'androidx.compose.material3:material3:1.2.1'
 
     // Import other Compose libraries without version numbers
     // ..
     implementation 'androidx.compose.foundation:foundation'
-    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation 'androidx.activity:activity-compose:1.8.2'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.1.2'
+    implementation 'androidx.compose.material3:material3:1.2.1'
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.57'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -83,7 +83,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.TuleSimon'
                 artifactId = 'xMaterialccp'
-                version = 'v1.23'
+                version = 'v2.0'
             }
         })
     }
