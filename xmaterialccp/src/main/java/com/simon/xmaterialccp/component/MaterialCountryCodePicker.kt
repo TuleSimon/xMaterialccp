@@ -67,6 +67,8 @@ import com.simon.xmaterialccp.data.CCPColors
  * @param errorIcon the drawable resource file to use as error icon
  * @param errorText the text to show when an invalid number is entered
  * @param errorModifier modifier applied to the error text
+ * @param hint The text to be shown when the textfield is empty
+ * @param showNumberPlaceHolder to disable the default number pattern suggestions, If hint is present then this will be ignored
  * @param colors the colors of the picker, customized the look and feel of the picker
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -106,6 +108,8 @@ fun MaterialCountryCodePicker(
     showErrorIcon:Boolean=true,
     errorText:String = stringResource(id = R.string.invalid_number),
     errorModifier:Modifier = Modifier,
+    hint: String? = null,
+    showNumberPlaceHolder: Boolean = true,
     colors: CCPColors
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
@@ -147,10 +151,17 @@ fun MaterialCountryCodePicker(
                 singleLine = true,
                 visualTransformation = PhoneNumberTransformation(defaultCountry.countryCode.uppercase()),
                 placeholder = {
-                    Text(
-                        style = phonehintnumbertextstyle,
-                        text = stringResource(id = getNumberHint(defaultCountry.countryCode))
-                    )
+                    if (!(hint.isNullOrBlank())) {
+                        Text(
+                            style = phonehintnumbertextstyle,
+                            text = hint
+                        )
+                    } else if (showNumberPlaceHolder) {
+                        Text(
+                            style = phonehintnumbertextstyle,
+                            text = stringResource(id = getNumberHint(defaultCountry.countryCode))
+                        )
+                    }
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.NumberPassword,
