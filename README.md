@@ -94,6 +94,8 @@ fun MaterialCountryCodePicker(
     @DrawableRes errorIcon:Int?=null,
     @DrawableRes dropDownIcon:Int?=null,
     showErrorIcon:Boolean=true,
+    hint: String? = null,
+    showNumberPlaceHolder: Boolean = true,
     colors:CCPColors
 )
 ```  
@@ -138,6 +140,7 @@ fun SelectCountryWithCountryCode() {
             showCountryFlag = true,
             showCountryCode = true,
             isEnabled = true,
+            showNumberPlaceHolder = true,
             colors  = ccpDefaultColors(
                 primaryColor =MaterialTheme.colorScheme.primary,
                 errorColor =MaterialTheme.colorScheme.error,
@@ -217,6 +220,8 @@ fun SelectCountryWithCountryCode() {
 * @DrawableRes dropDownIcon the icon for drop down ,
 *  showErrorIcon if to show icon if an errror occurs,
 * flagShape to customize the shape of the flag
+* hint to replace the default number suggestions with custom placeholder
+* showNumberPlaceHolder to disable the default number pattern suggestions, If hint is present then this will be ignored
 * *** colors *** customized the colors of the picker
 
 

@@ -1,5 +1,6 @@
 package com.simon.xmaterialccp.component
 
+import android.text.SpannableString
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,12 +22,15 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.text.buildSpannedString
 import com.simon.xmaterialccp.data.CountryData
 import com.simon.xmaterialccp.data.utils.getNumberHint
 import com.simon.xmaterialccp.transformation.PhoneNumberTransformation
@@ -67,6 +71,8 @@ import com.simon.xmaterialccp.data.CCPColors
  * @param errorIcon the drawable resource file to use as error icon
  * @param errorText the text to show when an invalid number is entered
  * @param errorModifier modifier applied to the error text
+ * @param hint The text to be shown when the textfield is empty
+ * @param showNumberPlaceHolder to disable the default number pattern suggestions, If hint is present then this will be ignored
  * @param colors the colors of the picker, customized the look and feel of the picker
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -106,6 +112,8 @@ fun MaterialCountryCodePicker(
     showErrorIcon:Boolean=true,
     errorText:String = stringResource(id = R.string.invalid_number),
     errorModifier:Modifier = Modifier,
+    hint: AnnotatedString? = null,
+    showNumberPlaceHolder: Boolean = true,
     colors: CCPColors
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
@@ -147,10 +155,17 @@ fun MaterialCountryCodePicker(
                 singleLine = true,
                 visualTransformation = PhoneNumberTransformation(defaultCountry.countryCode.uppercase()),
                 placeholder = {
-                    Text(
-                        style = phonehintnumbertextstyle,
-                        text = stringResource(id = getNumberHint(defaultCountry.countryCode))
-                    )
+                    if (!(hint.isNullOrBlank())) {
+                        Text(
+                            style = phonehintnumbertextstyle,
+                            text = hint
+                        )
+                    } else if (showNumberPlaceHolder) {
+                        Text(
+                            style = phonehintnumbertextstyle,
+                            text = stringResource(id = getNumberHint(defaultCountry.countryCode))
+                        )
+                    }
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.NumberPassword,
