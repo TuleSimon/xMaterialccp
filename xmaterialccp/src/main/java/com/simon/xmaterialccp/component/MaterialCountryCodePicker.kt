@@ -1,5 +1,6 @@
 package com.simon.xmaterialccp.component
 
+import android.text.SpannableString
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,12 +22,15 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.text.buildSpannedString
 import com.simon.xmaterialccp.data.CountryData
 import com.simon.xmaterialccp.data.utils.getNumberHint
 import com.simon.xmaterialccp.transformation.PhoneNumberTransformation
@@ -108,7 +112,7 @@ fun MaterialCountryCodePicker(
     showErrorIcon:Boolean=true,
     errorText:String = stringResource(id = R.string.invalid_number),
     errorModifier:Modifier = Modifier,
-    hint: String? = null,
+    hint: AnnotatedString? = null,
     showNumberPlaceHolder: Boolean = true,
     colors: CCPColors
 ) {
