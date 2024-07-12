@@ -107,6 +107,7 @@ fun MaterialCountryCodePicker(
     errorText:String = stringResource(id = R.string.invalid_number),
     errorModifier:Modifier = Modifier,
     colors: CCPColors
+    placeholder: (@Composable () -> Unit)? = null
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
     val textFieldValue = textFieldValueState.copy(text = text)
@@ -147,10 +148,14 @@ fun MaterialCountryCodePicker(
                 singleLine = true,
                 visualTransformation = PhoneNumberTransformation(defaultCountry.countryCode.uppercase()),
                 placeholder = {
-                    Text(
-                        style = phonehintnumbertextstyle,
-                        text = stringResource(id = getNumberHint(defaultCountry.countryCode))
-                    )
+                    if(placeholder!=null){
+                        placeholder()
+                    } else{
+                        Text(
+                            style = phonehintnumbertextstyle,
+                            text = stringResource(id = getNumberHint(defaultCountry.countryCode))
+                        )
+                    }
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.NumberPassword,
