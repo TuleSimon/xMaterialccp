@@ -106,7 +106,8 @@ fun MaterialCountryCodePicker(
     showErrorIcon:Boolean=true,
     errorText:String = stringResource(id = R.string.invalid_number),
     errorModifier:Modifier = Modifier,
-    colors: CCPColors
+    colors: CCPColors,
+    onDone: () -> Unit = {},
     placeholder: (@Composable () -> Unit)? = null
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
@@ -161,7 +162,12 @@ fun MaterialCountryCodePicker(
                     keyboardType = KeyboardType.NumberPassword,
                     autoCorrect = true,
                 ),
-                keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                        onDone()
+                    }
+                ),
                 leadingIcon = {
                     Column(modifier = Modifier.padding(flagPadding)) {
                         val dialog = MaterialCodePicker()
@@ -188,8 +194,6 @@ fun MaterialCountryCodePicker(
                             isEnabled = isEnabled,
                         )
                     }
-
-
                 },
                 trailingIcon = {
                     if (error && showErrorIcon) {
