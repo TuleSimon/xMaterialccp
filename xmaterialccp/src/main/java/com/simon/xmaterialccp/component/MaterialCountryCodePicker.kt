@@ -70,7 +70,9 @@ import com.simon.xmaterialccp.data.CCPColors
  * @param errorText the text to show when an invalid number is entered
  * @param errorModifier modifier applied to the error text
  * @param showClearIcon whether to show clear icon on the textfield
- * @param clearIcon pass a custom clear icon if possibnle
+ * @param clearIcon pass a custom clear icon if possible
+ * @param onDone keyboardIme onDone Event
+ * @param placeholder custom placeholder
  * @param dialogItemBuilder pass this value to be customized the country list item design on the dialog
  * @param colors the colors of the picker, customized the look and feel of the picker
  */
