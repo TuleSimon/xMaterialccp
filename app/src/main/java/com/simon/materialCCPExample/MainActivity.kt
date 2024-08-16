@@ -34,6 +34,7 @@ import com.simon.xmaterialccp.data.ccpDefaultColors
 import com.simon.xmaterialccp.data.utils.checkPhoneNumber
 import com.simon.xmaterialccp.data.utils.getDefaultLangCode
 import com.simon.xmaterialccp.data.utils.getDefaultPhoneCode
+import com.simon.xmaterialccp.data.utils.getFlags
 import com.simon.xmaterialccp.data.utils.getLibCountries
 import com.simon.xmaterialccp.data.utils.setLocale
 
@@ -143,7 +144,10 @@ fun SelectCountryWithCountryCode() {
             Row(Modifier.clickable {
                 onclick()
             }) {
-                Image(painterResource(id = country.flagResID) , contentDescription =null )
+                Image(painterResource(id = getFlags(
+                    country.countryCode
+                )
+                ) , contentDescription =null )
                 Text(text = country.cNames)
             }
 

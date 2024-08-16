@@ -70,7 +70,9 @@ import com.simon.xmaterialccp.data.CCPColors
  * @param errorText the text to show when an invalid number is entered
  * @param errorModifier modifier applied to the error text
  * @param showClearIcon whether to show clear icon on the textfield
- * @param clearIcon pass a custom clear icon if possibnle
+ * @param clearIcon pass a custom clear icon if possible
+ * @param onDone keyboardIme onDone Event
+ * @param placeholder custom placeholder
  * @param dialogItemBuilder pass this value to be customized the country list item design on the dialog
  * @param colors the colors of the picker, customized the look and feel of the picker
  */
@@ -107,12 +109,14 @@ fun MaterialCountryCodePicker(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
     flagShape: CornerBasedShape = RoundedCornerShape(0.dp),
-    @DrawableRes errorIcon: Int? = null,
-    @DrawableRes dropDownIcon: Int? = null,
-    showErrorIcon: Boolean = true,
+    @DrawableRes errorIcon:Int?=null ,
+    @DrawableRes dropDownIcon:Int?=null ,
+    showErrorIcon:Boolean=true,
+    errorText:String = stringResource(id = R.string.invalid_number),
+    errorModifier:Modifier = Modifier,
+    onDone: () -> Unit = {},
+    placeholder: (@Composable () -> Unit)? = null,
     showClearIcon: Boolean = false,
-    errorText: String = stringResource(id = R.string.invalid_number),
-    errorModifier: Modifier = Modifier,
     dialogItemBuilder: @Composable() ((data: CountryData, onClick: () -> Unit) -> Unit)? = null,
     @DrawableRes clearIcon: Int? = null,
 
@@ -156,16 +160,25 @@ fun MaterialCountryCodePicker(
                 singleLine = true,
                 visualTransformation = PhoneNumberTransformation(defaultCountry.countryCode.uppercase()),
                 placeholder = {
-                    Text(
-                        style = phonehintnumbertextstyle,
-                        text = stringResource(id = getNumberHint(defaultCountry.countryCode))
-                    )
+                    if(placeholder!=null){
+                        placeholder()
+                    } else{
+                        Text(
+                            style = phonehintnumbertextstyle,
+                            text = stringResource(id = getNumberHint(defaultCountry.countryCode))
+                        )
+                    }
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.NumberPassword,
                     autoCorrect = true,
                 ),
-                keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                        onDone()
+                    }
+                ),
                 leadingIcon = {
                     Column(modifier = Modifier.padding(flagPadding)) {
                         val dialog = MaterialCodePicker()
@@ -193,8 +206,6 @@ fun MaterialCountryCodePicker(
                             dialogItemBuilder = dialogItemBuilder,
                         )
                     }
-
-
                 },
                 trailingIcon = {
                     if ((error.not() || showErrorIcon.not()) && showClearIcon && textFieldValue.text.isNotEmpty()) {
