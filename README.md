@@ -238,25 +238,31 @@ fun SelectCountryWithCountryCode() {
 
 ```kotlin
       MaterialCountryCodePicker(
-        pickedCountry = {
-            phoneCode = it.countryPhoneCode
-            defaultLang = it.countryCode
-        },
-        defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
-        error = !isValidPhone,
-        text = phoneNumber.value,
-        onValueChange = { phoneNumber.value = it },
-          dialogItemBuilder = {country,onclick ->
+    pickedCountry = {
+        phoneCode = it.countryPhoneCode
+        defaultLang = it.countryCode
+    },
+    defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
+    error = !isValidPhone,
+    text = phoneNumber.value,
+    onValueChange = { phoneNumber.value = it },
+    dialogItemBuilder = { country, onclick ->
 
-            Row(Modifier.clickable { 
-                onclick()
-            }) {
-                Image(painterResource(id = country.flagResID) , contentDescription =null )
-                Text(text = country.cNames)
-            }
-            
+        Row(Modifier.clickable {
+            onclick()
+        }) {
+            Image(
+                painterResource(
+                    id = getFlags(
+                        country.countryCode
+                    )
+                ), contentDescription = null
+            )
+            Text(text = country.cNames)
         }
-      )
+
+    }
+)
 ```
 
 <div class="row">
@@ -269,8 +275,8 @@ You can now change just the picker Locale to your local by passing the language 
 
 ```kotlin
 LaunchedEffect(key1 = true) {
-        setLocale(context,"en")
-    }
+    setLocale(context, "en")
+}
 ```
 
 <h3> How to add in your project </h3>
@@ -288,8 +294,8 @@ Step 2. Add the dependency
 
 ```groovy
   dependencies {
-	  implementation 'com.github.TuleSimon:xMaterialccp:v2.12'
-	}  
+    implementation 'com.github.TuleSimon:xMaterialccp:v2.12'
+}  
 ```    
 
 <h3> Addition of new Features or Bug Request </h3>
