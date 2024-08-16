@@ -76,7 +76,8 @@ class MaterialCodePicker {
         searchFieldTextStyle: TextStyle = MaterialTheme.typography.bodyMedium,
         isEnabled: Boolean = true,
         @DrawableRes dropDownIcon: Int? = null,
-        flagShape: CornerBasedShape = RoundedCornerShape(0.dp)
+        flagShape: CornerBasedShape = RoundedCornerShape(0.dp),
+        dialogItemBuilder: @Composable() ((data: CountryData, onClick: () -> Unit) -> Unit)? = null,
     ) {
         val countryList: List<CountryData> = getLibCountries()
         var isPickCountry by remember { mutableStateOf(defaultSelectedCountry) }
@@ -179,7 +180,7 @@ class MaterialCodePicker {
                         TopAppBar(
                             title = {
                                 Text(
-                                    text = "Select country/region",
+                                    text = stringResource(R.string.select_country_region),
                                     modifier = Modifier.fillMaxWidth(),
                                     textAlign = TextAlign.Center,
                                     style = appbartitleStyle
@@ -270,52 +271,66 @@ class MaterialCodePicker {
                                     }),
                                     key = { it.countryCode }
                                 ) { countryItem ->
-                                    Row(
-                                        Modifier
-                                            .padding(
-                                                vertical = countryItemVerticalPadding,
-                                                horizontal = countryItemHorizontalPadding
-                                            )
-                                            .background(
-                                                color = colors.countryItemBgColor,
-                                                shape = countryItemBgShape
-                                            )
-                                            .animateItemPlacement(
-                                            )
-                                            .fillMaxWidth()
-                                            .wrapContentHeight()
-                                            .padding(10.dp)
-                                            .clickable {
-                                                pickedCountry(countryItem)
-                                                isPickCountry = countryItem
-                                                isOpenDialog = false
-                                                searchValue = ""
-                                                isSearch = false
-                                            },
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Image(
-                                            modifier = modifier.width(30.dp),
-                                            painter = painterResource(
-                                                id = getFlags(
-                                                    countryItem.countryCode
+                                    if (dialogItemBuilder != null) {
+                                        dialogItemBuilder(countryItem) {
+                                            pickedCountry(countryItem)
+                                            isPickCountry = countryItem
+                                            isOpenDialog = false
+                                            searchValue = ""
+                                            isSearch = false
+                                        }
+                                    } else {
+                                        Row(
+                                            Modifier
+                                                .padding(
+                                                    vertical = countryItemVerticalPadding,
+                                                    horizontal = countryItemHorizontalPadding
                                                 )
-                                            ), contentDescription = null
-                                        )
-                                        Text(
-                                            text = stringResource(id = getCountryName(countryItem.countryCode.lowercase())),
-                                            maxLines = 1,
-                                            style = countrytextstyle,
-                                            textAlign = TextAlign.Start,
-                                            overflow = TextOverflow.Ellipsis,
-                                            modifier = Modifier.widthIn(200.dp)
-                                        )
-                                        if (showCountryCodeInDIalog)
-                                            Text(
-                                                text = countryItem.countryPhoneCode,
-                                                style = dialogcountrycodetextstyle,
+                                                .background(
+                                                    color = colors.countryItemBgColor,
+                                                    shape = countryItemBgShape
+                                                )
+                                                .animateItemPlacement(
+                                                )
+                                                .fillMaxWidth()
+                                                .wrapContentHeight()
+                                                .padding(10.dp)
+                                                .clickable {
+                                                    pickedCountry(countryItem)
+                                                    isPickCountry = countryItem
+                                                    isOpenDialog = false
+                                                    searchValue = ""
+                                                    isSearch = false
+                                                },
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Image(
+                                                modifier = modifier.width(30.dp),
+                                                painter = painterResource(
+                                                    id = getFlags(
+                                                        countryItem.countryCode
+                                                    )
+                                                ), contentDescription = null
                                             )
+                                            Text(
+                                                text = stringResource(
+                                                    id = getCountryName(
+                                                        countryItem.countryCode.lowercase()
+                                                    )
+                                                ),
+                                                maxLines = 1,
+                                                style = countrytextstyle,
+                                                textAlign = TextAlign.Start,
+                                                overflow = TextOverflow.Ellipsis,
+                                                modifier = Modifier.widthIn(200.dp)
+                                            )
+                                            if (showCountryCodeInDIalog)
+                                                Text(
+                                                    text = countryItem.countryPhoneCode,
+                                                    style = dialogcountrycodetextstyle,
+                                                )
+                                        }
                                     }
                                 }
                             }

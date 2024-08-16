@@ -5,12 +5,13 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.11">v2.11</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.12">v2.12</a>
 
-## WHAT IS NEW (v2.11)
-* Fixed keyboard bugs on new compose version
-* Updated compose version
-* Updated jdk version
+## WHAT IS NEW (v2.12)
+* added Dialog Items Builder, giving you the power to customize dialog items
+* changing particular locale programmatically
+* added/fixed more localizations
+* added clear icon property
 * added error modifier to customize error text
 
 # CREDIT
@@ -93,7 +94,8 @@ fun MaterialCountryCodePicker(
     isReadOnly: Boolean = false,
     @DrawableRes errorIcon:Int?=null,
     @DrawableRes dropDownIcon:Int?=null,
-    showErrorIcon:Boolean=true,
+    showClearIcon:Boolean=false,
+    @DrawableRes clearIcon:Int?=null ,
     colors:CCPColors
 )
 ```  
@@ -219,7 +221,45 @@ fun SelectCountryWithCountryCode() {
 * flagShape to customize the shape of the flag
 * *** colors *** customized the colors of the picker
 
+<h3> Using the Builder </h3>
+<h4>You can use the <b>dialogItemBuilder</b> to customize how the country items appear on the dialog</h4>
+<h4>Here is an example</h4>
 
+```
+         MaterialCountryCodePicker(
+        pickedCountry = {
+            phoneCode = it.countryPhoneCode
+            defaultLang = it.countryCode
+        },
+        defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
+        error = !isValidPhone,
+        text = phoneNumber.value,
+        onValueChange = { phoneNumber.value = it },
+          dialogItemBuilder = {country,onclick ->
+
+            Row(Modifier.clickable { 
+                onclick()
+            }) {
+                Image(painterResource(id = country.flagResID) , contentDescription =null )
+                Text(text = country.cNames)
+            }
+            
+        }
+        )
+```
+
+<div class="row">
+  <img src="screenshots/dialogBuilder.png" width="300" alt="Dialog Builder"> 
+ </div>
+
+
+<h3>Change picker Locale</h3>
+You can now change just the picker Locale to your local by passing the language code
+```
+LaunchedEffect(key1 = true) {
+        setLocale(context,"en")
+    }
+```
 
 <h3> How to add in your project </h3>
 
