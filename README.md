@@ -187,11 +187,9 @@ fun SelectCountryWithCountryCode() {
 }
 
 
-
 ```  
 
 <h3> Extras /h3>
-<l>
 * <b> countrytextstyle </b> the textstyle to be used for the country in the lazy column in dialog
 * <b> dialogcountrycodetextstyle </b> the textstyle to be used for the country code in the lazy
   column in dialog
@@ -210,7 +208,7 @@ fun SelectCountryWithCountryCode() {
   any selection
 * <b> pickedCountry </b> the function to be called whenever a country is selected with a parameter
   of [CountryData] that sets the select country data to the parameter passed
-* <b> error <b> if to switch textfield to error state, if `true` the textfield shows red outlines
+* <b> error </b> if to switch textfield to error state, if `true` the textfield shows red outlines
   and an error icon
 * showErrorText if to show an errortext that appears below the textfield when an error occurs
 * flagPadding the padding values on the textfield
@@ -231,8 +229,8 @@ fun SelectCountryWithCountryCode() {
 * @DrawableRes dropDownIcon the icon for drop down ,
 * showErrorIcon if to show icon if an errror occurs,
 * flagShape to customize the shape of the flag
-* <b> colors <b> customized the colors of the picker
-</l>
+* <b> colors </b> customized the colors of the picker
+
 <h3> Using the Builder </h3>
 <h4>You can use the <b>dialogItemBuilder</b> to customize how the country items appear on the dialog</h4>
 <h4>Here is an example</h4>
