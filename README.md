@@ -6,13 +6,14 @@ Jetpack Compose Material Country Code Picker
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
 
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.12">
-v2.12</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.13">
+v2.13</a>
 
-## WHAT IS NEW (v2.12)
+## WHAT IS NEW (v2.13)
 
 * added Dialog Items Builder, giving you the power to customize dialog items
-* changing particular locale programmatically
+* changing locale programmatically
+* custom placeholder
 * added/fixed more localizations
 * added clear icon property
 * added error modifier to customize error text
@@ -202,7 +203,7 @@ fun SelectCountryWithCountryCode() {
 * <b> showDropDownAfterFlag </b> whether to show the drop down before or after the flag, if true then
   the dropdown will show after flag, if false before flag
 * <b> dropDownIconTInt </b> the icon tint to be used for the dropdown icon
-* <b> text <b> the dialog phone number text
+* <b> text </b> the dialog phone number text
 * <b> onValueChange </b> the function to be called whenever the phone number changes
 * <b> showCountryCode </b> If the country code should be shown on the textfield, if `false`
   and [showCountryFlag] is `true` just the flag will be shown
@@ -296,7 +297,7 @@ Step 2. Add the dependency
 
 ```groovy
   dependencies {
-    implementation 'com.github.TuleSimon:xMaterialccp:v2.12'
+    implementation 'com.github.TuleSimon:xMaterialccp:v2.13'
 }  
 ```    
 
