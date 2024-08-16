@@ -3,7 +3,9 @@ package com.simon.materialCCPExample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.simon.materialCCPExample.ui.theme.MaterialCCPExampleTheme
@@ -31,7 +34,9 @@ import com.simon.xmaterialccp.data.ccpDefaultColors
 import com.simon.xmaterialccp.data.utils.checkPhoneNumber
 import com.simon.xmaterialccp.data.utils.getDefaultLangCode
 import com.simon.xmaterialccp.data.utils.getDefaultPhoneCode
+import com.simon.xmaterialccp.data.utils.getFlags
 import com.simon.xmaterialccp.data.utils.getLibCountries
+import com.simon.xmaterialccp.data.utils.setLocale
 
 
 class MainActivity : ComponentActivity() {
@@ -83,6 +88,10 @@ fun SelectCountryWithCountryCode() {
     var defaultLang by rememberSaveable { mutableStateOf(getDefaultLangCode(context)) }
     var isValidPhone by remember { mutableStateOf(true) }
 
+    LaunchedEffect(key1 = true) {
+        setLocale(context,"en")
+    }
+
     MaterialCountryCodePicker(
         pickedCountry = {
             phoneCode = it.countryPhoneCode
@@ -106,9 +115,10 @@ fun SelectCountryWithCountryCode() {
         countryItemBgShape = RoundedCornerShape(5.dp),
         showCountryFlag = true,
         showCountryCode = true,
+        showClearIcon = true,
         flagShape = RoundedCornerShape(10f),
         isEnabled = true,
-        showErrorIcon = false,
+        showErrorIcon = true,
         colors = ccpDefaultColors(
             primaryColor = MaterialTheme.colorScheme.primary,
             errorColor = MaterialTheme.colorScheme.error,
@@ -127,7 +137,21 @@ fun SelectCountryWithCountryCode() {
 
         ),
         errorTextStyle = MaterialTheme.typography.bodySmall,
-        errorModifier = Modifier.padding(top = 3.dp, start = 10.dp)
+
+        errorModifier = Modifier.padding(top = 3.dp, start = 10.dp),
+        dialogItemBuilder = {country,onclick ->
+
+            Row(Modifier.clickable {
+                onclick()
+            }) {
+                Image(painterResource(id = getFlags(
+                    country.countryCode
+                )
+                ) , contentDescription =null )
+                Text(text = country.cNames)
+            }
+
+        }
     )
 
     val fullPhoneNumber = "$phoneCode${phoneNumber.value}"

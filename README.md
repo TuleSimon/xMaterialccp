@@ -5,23 +5,30 @@ Jetpack Compose Material Country Code Picker
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.11">v2.11</a>
 
-## WHAT IS NEW (v2.11)
-* Fixed keyboard bugs on new compose version
-* Updated compose version
-* Updated jdk version
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.12">
+v2.12</a>
+
+## WHAT IS NEW (v2.12)
+
+* added Dialog Items Builder, giving you the power to customize dialog items
+* changing particular locale programmatically
+* added/fixed more localizations
+* added clear icon property
 * added error modifier to customize error text
 
 # CREDIT
-This project was forked from <a href="https://github.com/togisoft/jetpack_compose_country_code_picker">togisoft</a>,
-His Github repo and efforts are what laid the ground work for me to improve on it and create a more customizable version of his library,
+
+This project was forked
+from <a href="https://github.com/togisoft/jetpack_compose_country_code_picker">togisoft</a>,
+His Github repo and efforts are what laid the ground work for me to improve on it and create a more
+customizable version of his library,
 
 
 <h1>WELCOME</h1>
 
-If you are looking for a highly customizable and Material Country Phone Code Picker for Jetpack Compose you can use the package.
-
+If you are looking for a highly customizable and Material Country Phone Code Picker for Jetpack
+Compose you can use the package.
 
 * Country numbers hints
 * Phone number visualTransformation (Automatic number formatting)
@@ -41,7 +48,8 @@ Languages:
 * Arabic
 * Russian
 
-New features will be added as time goes by and updates will be made. This project is open source without any profit motive.
+New features will be added as time goes by and updates will be made. This project is open source
+without any profit motive.
 
 For language support, you can send me a message.
 <a href="https://www.linkedin.com/mwlite/in/tule-simon-67a202157">Chat me up on Linkedln</a>
@@ -55,7 +63,7 @@ For language support, you can send me a message.
  </div>
 
 
-**** Specifications ****
+<h1> Specifications </h1>
 
 <h3> Material Country Code Picker </h3>
 
@@ -89,18 +97,17 @@ fun MaterialCountryCodePicker(
     countrycodetextstyle: TextStyle = MaterialTheme.typography.bodyMedium,
     showDropDownAfterFlag: Boolean = false,
     isEnabled: Boolean = true,
-    flagShape:CornerBasedShape = RoundedCornerShape(0.dp),
+    flagShape: CornerBasedShape = RoundedCornerShape(0.dp),
     isReadOnly: Boolean = false,
-    @DrawableRes errorIcon:Int?=null,
-    @DrawableRes dropDownIcon:Int?=null,
-    showErrorIcon:Boolean=true,
-    colors:CCPColors,
+    @DrawableRes errorIcon: Int? = null,
+    @DrawableRes dropDownIcon: Int? = null,
+    showClearIcon: Boolean = false,
+    @DrawableRes clearIcon: Int? = null,
+    colors: CCPColors,
     onDone: () -> Unit = {},
     placeholder: @Composable () -> Unit? = null,
 )
 ```  
-
-
 
 <h3>  Field Usage </h3>
 
@@ -127,9 +134,9 @@ fun SelectCountryWithCountryCode() {
             onValueChange = { phoneNumber.value = it },
             searchFieldPlaceHolderTextStyle = MaterialTheme.typography.bodyMedium,
             searchFieldTextStyle = MaterialTheme.typography.bodyMedium,
-            phonenumbertextstyle =  MaterialTheme.typography.bodyMedium,
-            countrytextstyle =  MaterialTheme.typography.bodyMedium,
-            countrycodetextstyle =  MaterialTheme.typography.bodyMedium,
+            phonenumbertextstyle = MaterialTheme.typography.bodyMedium,
+            countrytextstyle = MaterialTheme.typography.bodyMedium,
+            countrycodetextstyle = MaterialTheme.typography.bodyMedium,
             showErrorText = true,
             showCountryCodeInDIalog = true,
             showDropDownAfterFlag = true,
@@ -140,21 +147,21 @@ fun SelectCountryWithCountryCode() {
             showCountryFlag = true,
             showCountryCode = true,
             isEnabled = true,
-            colors  = ccpDefaultColors(
-                primaryColor =MaterialTheme.colorScheme.primary,
-                errorColor =MaterialTheme.colorScheme.error,
-                backgroundColor =MaterialTheme.colorScheme.background,
-                surfaceColor =MaterialTheme.colorScheme.surface,
-                outlineColor =MaterialTheme.colorScheme.outline,
-                disabledOutlineColor =MaterialTheme.colorScheme.outline.copy(0.1f),
-                unfocusedOutlineColor =MaterialTheme.colorScheme.onBackground.copy(0.3f),
-                textColor =MaterialTheme.colorScheme.onBackground.copy(0.7f),
-                cursorColor =MaterialTheme.colorScheme.primary,
-                topAppBarColor =MaterialTheme.colorScheme.surface,
-                countryItemBgColor =MaterialTheme.colorScheme.surface,
-                searchFieldBgColor =MaterialTheme.colorScheme.surface,
-                dialogNavIconColor =MaterialTheme.colorScheme.onBackground.copy(0.7f),
-                dropDownIconTint =MaterialTheme.colorScheme.onBackground.copy(0.7f)
+            colors = ccpDefaultColors(
+                primaryColor = MaterialTheme.colorScheme.primary,
+                errorColor = MaterialTheme.colorScheme.error,
+                backgroundColor = MaterialTheme.colorScheme.background,
+                surfaceColor = MaterialTheme.colorScheme.surface,
+                outlineColor = MaterialTheme.colorScheme.outline,
+                disabledOutlineColor = MaterialTheme.colorScheme.outline.copy(0.1f),
+                unfocusedOutlineColor = MaterialTheme.colorScheme.onBackground.copy(0.3f),
+                textColor = MaterialTheme.colorScheme.onBackground.copy(0.7f),
+                cursorColor = MaterialTheme.colorScheme.primary,
+                topAppBarColor = MaterialTheme.colorScheme.surface,
+                countryItemBgColor = MaterialTheme.colorScheme.surface,
+                searchFieldBgColor = MaterialTheme.colorScheme.surface,
+                dialogNavIconColor = MaterialTheme.colorScheme.onBackground.copy(0.7f),
+                dropDownIconTint = MaterialTheme.colorScheme.onBackground.copy(0.7f)
 
             )
         )
@@ -182,24 +189,30 @@ fun SelectCountryWithCountryCode() {
 }
 
 
-
 ```  
 
-<h3><- ********* Extras ********* -></h3>
+<h3> Extras </h3>
 
-* *** countrytextstyle *** the textstyle to be used for the country in the lazy column in dialog
-* *** dialogcountrycodetextstyle *** the textstyle to be used for the country code in the lazy column in dialog
-* *** showCountryCodeInDIalog *** whether to show the country code in the lazy column dialog or not
-* *** countrycodetextstyle *** the textstyle to be used for the country code in the original textfield
-* *** showDropDownAfterFlag *** whether to show the drop down before or after the flag, if true then the dropdown will show after flag, if false before flag
-* *** dropDownIconTInt *** the icon tint to be used for the dropdown icon
-* *** text *** the dialog phone number text
-* *** onValueChange *** the function to be called whenever the phone number changes
-* *** showCountryCode *** If the country code should be shown on the textfield, if `false` and [showCountryFlag] is `true` just the flag will be shown
-* *** showCountryFlag ***
-* *** defaultCountry *** The default country to be showed when the ccp is first initialized without any selection
-* *** pickedCountry *** the function to be called whenever a country is selected with a parameter of [CountryData] that sets the select country data to the parameter passed
-* *** error *** if to switch textfield to error state, if `true` the textfield shows red outlines and an error icon
+* <b> countrytextstyle </b> the textstyle to be used for the country in the lazy column in dialog
+* <b> dialogcountrycodetextstyle </b> the textstyle to be used for the country code in the lazy
+  column in dialog
+* <b> showCountryCodeInDIalog </b> whether to show the country code in the lazy column dialog or not
+* <b> countrycodetextstyle </b> the textstyle to be used for the country code in the original
+  textfield
+* <b> showDropDownAfterFlag </b> whether to show the drop down before or after the flag, if true then
+  the dropdown will show after flag, if false before flag
+* <b> dropDownIconTInt </b> the icon tint to be used for the dropdown icon
+* <b> text <b> the dialog phone number text
+* <b> onValueChange </b> the function to be called whenever the phone number changes
+* <b> showCountryCode </b> If the country code should be shown on the textfield, if `false`
+  and [showCountryFlag] is `true` just the flag will be shown
+* <b> showCountryFlag </b>
+* <b> defaultCountry </b> The default country to be showed when the ccp is first initialized without
+  any selection
+* <b> pickedCountry </b> the function to be called whenever a country is selected with a parameter
+  of [CountryData] that sets the select country data to the parameter passed
+* <b> error </b> if to switch textfield to error state, if `true` the textfield shows red outlines
+  and an error icon
 * showErrorText if to show an errortext that appears below the textfield when an error occurs
 * flagPadding the padding values on the textfield
 * countryItemBgShape The shape to be used for a row in the lazy column
@@ -217,11 +230,56 @@ fun SelectCountryWithCountryCode() {
 * isReadOnly to make the cccp to be readonly, if readonly ccp can not be edited
 * @DrawableRes errorIcon the icon to show if error occurs ,
 * @DrawableRes dropDownIcon the icon for drop down ,
-*  showErrorIcon if to show icon if an errror occurs,
+* showErrorIcon if to show icon if an errror occurs,
 * flagShape to customize the shape of the flag
-* *** colors *** customized the colors of the picker
+* <b> colors </b> customized the colors of the picker
+
+<h3> Using the Builder </h3>
+<h4>You can use the <b>dialogItemBuilder</b> to customize how the country items appear on the dialog</h4>
+<h4>Here is an example</h4>
+
+```kotlin
+      MaterialCountryCodePicker(
+    pickedCountry = {
+        phoneCode = it.countryPhoneCode
+        defaultLang = it.countryCode
+    },
+    defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
+    error = !isValidPhone,
+    text = phoneNumber.value,
+    onValueChange = { phoneNumber.value = it },
+    dialogItemBuilder = { country, onclick ->
+
+        Row(Modifier.clickable {
+            onclick()
+        }) {
+            Image(
+                painterResource(
+                    id = getFlags(
+                        country.countryCode
+                    )
+                ), contentDescription = null
+            )
+            Text(text = country.cNames)
+        }
+
+    }
+)
+```
+
+<div class="row">
+  <img src="screenshots/dialogBuilder.png" width="300" alt="Dialog Builder"> 
+ </div>
 
 
+<h3>Change picker Locale</h3>
+You can now change just the picker Locale to your local by passing the language code
+
+```kotlin
+LaunchedEffect(key1 = true) {
+    setLocale(context, "en")
+}
+```
 
 <h3> How to add in your project </h3>
 
@@ -236,12 +294,11 @@ In the build.gradle add maven central repository
 
 Step 2. Add the dependency
 
-```
+```groovy
   dependencies {
-	  implementation 'com.github.TuleSimon:xMaterialccp:v2.11'
-	}  
+    implementation 'com.github.TuleSimon:xMaterialccp:v2.12'
+}  
 ```    
-
 
 <h3> Addition of new Features or Bug Request </h3>
 
