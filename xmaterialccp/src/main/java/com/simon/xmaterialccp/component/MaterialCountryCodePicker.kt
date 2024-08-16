@@ -2,12 +2,14 @@ package com.simon.xmaterialccp.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -67,6 +69,9 @@ import com.simon.xmaterialccp.data.CCPColors
  * @param errorIcon the drawable resource file to use as error icon
  * @param errorText the text to show when an invalid number is entered
  * @param errorModifier modifier applied to the error text
+ * @param showClearIcon whether to show clear icon on the textfield
+ * @param clearIcon pass a custom clear icon if possibnle
+ * @param dialogItemBuilder pass this value to be customized the country list item design on the dialog
  * @param colors the colors of the picker, customized the look and feel of the picker
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -74,11 +79,12 @@ import com.simon.xmaterialccp.data.CCPColors
 fun MaterialCountryCodePicker(
     text: String,
     onValueChange: (String) -> Unit,
+    colors: CCPColors,
+    defaultCountry: CountryData,
     modifier: Modifier = Modifier,
+    pickedCountry: (CountryData) -> Unit,
     showCountryCode: Boolean = true,
     showCountryFlag: Boolean = true,
-    defaultCountry: CountryData,
-    pickedCountry: (CountryData) -> Unit,
     error: Boolean = false,
     showErrorText: Boolean = true,
     flagPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
@@ -101,13 +107,16 @@ fun MaterialCountryCodePicker(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
     flagShape: CornerBasedShape = RoundedCornerShape(0.dp),
-    @DrawableRes errorIcon:Int?=null ,
-    @DrawableRes dropDownIcon:Int?=null ,
-    showErrorIcon:Boolean=true,
-    errorText:String = stringResource(id = R.string.invalid_number),
-    errorModifier:Modifier = Modifier,
-    colors: CCPColors
-) {
+    @DrawableRes errorIcon: Int? = null,
+    @DrawableRes dropDownIcon: Int? = null,
+    showErrorIcon: Boolean = true,
+    showClearIcon: Boolean = false,
+    errorText: String = stringResource(id = R.string.invalid_number),
+    errorModifier: Modifier = Modifier,
+    dialogItemBuilder: @Composable() ((data: CountryData, onClick: () -> Unit) -> Unit)? = null,
+    @DrawableRes clearIcon: Int? = null,
+
+    ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
     val textFieldValue = textFieldValueState.copy(text = text)
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -181,22 +190,48 @@ fun MaterialCountryCodePicker(
                             dropDownIcon = dropDownIcon,
                             flagShape = flagShape,
                             isEnabled = isEnabled,
+                            dialogItemBuilder = dialogItemBuilder,
                         )
                     }
 
 
                 },
                 trailingIcon = {
-                    if (error && showErrorIcon) {
-                        if(errorIcon==null) {
+                    if ((error.not() || showErrorIcon.not()) && showClearIcon && textFieldValue.text.isNotEmpty()) {
+                        if (clearIcon == null) {
                             Icon(
-                                imageVector = Icons.Filled.Warning, contentDescription = "Error",
-                                tint = colors.errorColor
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = "Error",
+                                tint = colors.clearIconColor,
+                                modifier = Modifier.clickable {
+                                    textFieldValueState = textFieldValueState.copy(text = "")
+                                    onValueChange("")
+                                }
+                            )
+                        } else {
+                            Icon(
+                                painterResource(id = clearIcon),
+                                contentDescription = stringResource(R.string.clear_icon),
+                                tint = colors.clearIconColor,
+                                modifier = Modifier.clickable {
+                                    textFieldValueState = textFieldValueState.copy(text = "")
+                                    onValueChange("")
+                                }
                             )
                         }
-                        else{
+                    }
+                    if (error && showErrorIcon) {
+                        if (errorIcon == null) {
                             Icon(
-                                painterResource(id = errorIcon) , contentDescription = "Error",
+                                imageVector = Icons.Filled.Warning,
+                                contentDescription = stringResource(
+                                    R.string.error_icon
+                                ),
+                                tint = colors.errorColor
+                            )
+                        } else {
+                            Icon(
+                                painterResource(id = errorIcon), contentDescription = "Error",
                                 tint = colors.errorColor
                             )
                         }

@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
  * @param searchFieldBgColor the bg color of the searchtext field
  * @param dialogNavIconColor the bg color of the back icon shown on the search dialog
  * @param dropDownIconTint the tint of the drop down icon
+ * @param clearIconColor the tint of the clear icon
  */
 @Composable
 fun ccpDefaultColors(
@@ -38,6 +39,7 @@ fun ccpDefaultColors(
     searchFieldBgColor: Color = colorScheme.surface,
     dialogNavIconColor: Color = colorScheme.onBackground.copy(0.7f),
     dropDownIconTint: Color = colorScheme.onBackground.copy(0.7f),
+    clearIconColor: Color = colorScheme.onBackground.copy(0.7f),
 ): CCPColors {
     return CCPColors(
         primaryColor = primaryColor,
@@ -54,6 +56,7 @@ fun ccpDefaultColors(
         searchFieldBgColor = searchFieldBgColor,
         dialogNavIconColor = dialogNavIconColor,
         dropDownIconTint = dropDownIconTint,
+        clearIconColor = clearIconColor
     )
 }
 
@@ -61,6 +64,7 @@ fun ccpDefaultColors(
 data class CCPColors(
     val primaryColor: Color,
     val errorColor: Color,
+    val clearIconColor: Color,
     val backgroundColor: Color,
     val surfaceColor: Color,
     val outlineColor: Color,

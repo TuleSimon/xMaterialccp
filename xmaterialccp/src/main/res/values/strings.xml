@@ -304,7 +304,7 @@
     <string name="turkey_hint" translatable="false">501 234 56 78</string>
     <string name="philippinies_hint" translatable="false">905 123 4567</string>
     <string name="state_of_palestine_hint" translatable="false">599 123 456</string>
-    <string name="france_hint" translatable="false">6 12 34 56 78</string>
+    <string name="france_hint" translatable="false">06 12 34 56 78</string>
     <string name="french_guyana_hint" translatable="false">694 20 12 34</string>
     <string name="french_polynesia_hint" translatable="false">87 12 34 56</string>
     <string name="gabon_hint" translatable="false">6 03 12 34</string>
@@ -479,5 +479,8 @@
     <string name="slovenia_hint" translatable="false">070 123 456</string>
     <string name="select_country">Select Country</string>
     <string name="invalid_number">Invalid Phone Number</string>
+    <string name="clear_icon">ClearIcon</string>
+    <string name="error_icon">Error Icon</string>
+    <string name="select_country_region">Select country/region</string>
 
 </resources>
