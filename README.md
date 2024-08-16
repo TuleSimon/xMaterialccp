@@ -190,6 +190,7 @@ fun SelectCountryWithCountryCode() {
 ```  
 
 <h3> Extras /h3>
+
 * <b> countrytextstyle </b> the textstyle to be used for the country in the lazy column in dialog
 * <b> dialogcountrycodetextstyle </b> the textstyle to be used for the country code in the lazy
   column in dialog
