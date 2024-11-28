@@ -142,12 +142,13 @@ fun MaterialCountryCodePicker(
                 shape = RoundedCornerShape(textFieldShapeCornerRadiusInPercentage),
                 value = textFieldValue,
                 textStyle = phonenumbertextstyle,
-                colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = if (error) colors.errorColor else if (isEnabled) colors.outlineColor
                     else colors.unfocusedOutlineColor,
                     unfocusedBorderColor = if (error) colors.errorColor else colors.unfocusedOutlineColor,
-                    cursorColor = colors.cursorColor,
-                    containerColor = colors.surfaceColor
+                    cursorColor =  colors.cursorColor,
+                    focusedContainerColor = colors.surfaceColor
+
                 ),
                 onValueChange = {
                     textFieldValueState = it
@@ -171,7 +172,6 @@ fun MaterialCountryCodePicker(
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.NumberPassword,
-                    autoCorrect = true,
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = {
