@@ -6,10 +6,10 @@ Jetpack Compose Material Country Code Picker
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
 
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.13">
-v2.13</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.14">
+v2.14</a>
 
-## WHAT IS NEW (v2.13)
+## WHAT IS NEW (v2.14)
 
 * added Dialog Items Builder, giving you the power to customize dialog items
 * changing locale programmatically
@@ -297,7 +297,7 @@ Step 2. Add the dependency
 
 ```groovy
   dependencies {
-    implementation 'com.github.TuleSimon:xMaterialccp:v2.13'
+    implementation 'com.github.TuleSimon:xMaterialccp:v2.14'
 }  
 ```    
 
