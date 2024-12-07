@@ -70,7 +70,7 @@ class PhoneNumberTransformation(countryCode: String = Locale.getDefault().countr
             } else {
                 originalToTransformed.add(index)
             }
-            transformedToOriginal.add(index - specialCharsCount)
+            transformedToOriginal.add(if (index > 0) index - specialCharsCount else index)
         }
         originalToTransformed.add(originalToTransformed.maxOrNull()?.plus(1) ?: 0)
         transformedToOriginal.add(transformedToOriginal.maxOrNull()?.plus(1) ?: 0)
