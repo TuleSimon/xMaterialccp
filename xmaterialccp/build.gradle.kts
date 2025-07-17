@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.TuleSimon"
-version = "v2.16"
+version = "2.17"
 
 android {
     namespace = "com.simon.xmaterialccp"
@@ -81,7 +81,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.TuleSimon"
                 artifactId = "xMaterialccp"
-                version = "v2.16"
+                version = "2.17"
             }
         }
     }
