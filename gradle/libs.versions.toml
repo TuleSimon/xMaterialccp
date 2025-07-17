@@ -1,0 +1,79 @@
+# gradle/libs.versions.toml
+
+[versions]
+# Android SDK versions
+android-compileSdk = "36"
+android-minSdk = "21"
+android-targetSdk = "36"
+android-ndkVersion = "25.2.9519653"
+
+# Build tool versions
+appcompat = "1.7.1"
+composeBom = "2025.07.00"
+gradle = "8.9.3" # Android Gradle Plugin version
+kotlin = "2.0.21" # Kotlin Gradle Plugin version
+
+# Dependencies versions
+androidx-core-ktx = "1.16.0"
+androidx-lifecycle-runtime-ktx = "2.9.2"
+androidx-activity-compose = "1.10.1"
+androidx-compose-ui = "1.8.3"
+junit = "4.13.2"
+androidx-test-ext-junit = "1.2.1"
+androidx-test-espresso-core = "3.6.1"
+libphonenumber = "9.0.10"
+lifecycleRuntimeKtx = "2.9.2"
+
+
+[libraries]
+# AndroidX Libraries
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
+androidx-foundation = { module = "androidx.compose.foundation:foundation" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidx-lifecycle-runtime-ktx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
+
+# Compose Libraries
+# Note: when using a BOM, individual Compose dependencies usually don't need a version
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidx-compose-ui" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" } # Uses the same UI version
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+
+
+# Testing Libraries
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-test-espresso-core" }
+
+# Other Libraries
+libphonenumber = { group = "com.googlecode.libphonenumber", name = "libphonenumber", version.ref = "libphonenumber" }
+
+
+[bundles]
+# You can group related libraries into bundles for easier management
+androidx-compose-essentials = [
+    "androidx-activity-compose",
+    "androidx-compose-foundation",
+    "androidx-compose-material3",
+    "androidx-compose-ui",
+    "androidx-compose-ui-tooling-preview",
+]
+# Add more bundles as needed
+
+[plugins]
+# Android Gradle Plugin
+android-application = { id = "com.android.application", version.ref = "gradle" }
+android-library = { id = "com.android.library", version.ref = "gradle" }
+
+# Kotlin Gradle Plugin
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+# Maven Publish Plugin
+maven-publish = { id = "maven-publish" } # No version for this plugin, usually built-in or from plugin portal

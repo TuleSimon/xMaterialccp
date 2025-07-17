@@ -290,8 +290,7 @@ class MaterialCodePicker {
                                                     color = colors.countryItemBgColor,
                                                     shape = countryItemBgShape
                                                 )
-                                                .animateItemPlacement(
-                                                )
+                                                .animateItem()
                                                 .fillMaxWidth()
                                                 .wrapContentHeight()
                                                 .padding(10.dp)
