@@ -6,7 +6,7 @@ Jetpack Compose Material Country Code Picker
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
 
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/2.17">
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.17">
 2.17</a>
 
 ## WHAT IS NEW (2.17)
