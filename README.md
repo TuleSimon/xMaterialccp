@@ -6,17 +6,14 @@ Jetpack Compose Material Country Code Picker
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
 
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.15">
-v2.15</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.16">
+v2.16</a>
 
-## WHAT IS NEW (v2.15)
+## WHAT IS NEW (v2.16)
 
-* added Dialog Items Builder, giving you the power to customize dialog items
-* changing locale programmatically
-* custom placeholder
-* added/fixed more localizations
-* added clear icon property
-* added error modifier to customize error text
+* **Migrated to Gradle Version Catalog:** Dependencies are now managed centrally, improving consistency and maintainability across modules.
+* **Updated Libraries:** All major dependencies have been updated to their latest stable versions for improved performance, stability, and access to new features.
+* **Switched to Kotlin DSL for Gradle:** Build scripts are now written in Kotlin, offering better IDE support, type safety, and a more concise syntax compared to Groovy DSL.
 
 # CREDIT
 
@@ -297,7 +294,7 @@ Step 2. Add the dependency
 
 ```groovy
   dependencies {
-    implementation 'com.github.TuleSimon:xMaterialccp:v2.15'
+    implementation 'com.github.TuleSimon:xMaterialccp:v2.16'
 }  
 ```    
 
