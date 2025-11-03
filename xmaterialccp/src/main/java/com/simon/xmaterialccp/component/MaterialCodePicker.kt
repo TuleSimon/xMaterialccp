@@ -116,6 +116,7 @@ class MaterialCodePicker {
                     Image(
                         modifier = modifier
                             .width(26.dp)
+                            .aspectRatio(1f)
                             .background(shape = flagShape, color = Color.Transparent)
                             .clip(flagShape)
                             .clipToBounds(),
