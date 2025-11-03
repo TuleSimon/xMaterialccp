@@ -6,14 +6,12 @@ Jetpack Compose Material Country Code Picker
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
 
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.17">
-2.17</a>
+The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.18">
+2.18</a>
 
-## WHAT IS NEW (2.17)
+## WHAT IS NEW (2.18)
 
-* **Migrated to Gradle Version Catalog:** Dependencies are now managed centrally, improving consistency and maintainability across modules.
-* **Updated Libraries:** All major dependencies have been updated to their latest stable versions for improved performance, stability, and access to new features.
-* **Switched to Kotlin DSL for Gradle:** Build scripts are now written in Kotlin, offering better IDE support, type safety, and a more concise syntax compared to Groovy DSL.
+* **Fixed error arising with material icons being removed in new compose versions
 
 # CREDIT
 
@@ -294,7 +292,7 @@ Step 2. Add the dependency
 
 ```groovy
   dependencies {
-    implementation 'com.github.TuleSimon:xMaterialccp:2.17'
+    implementation 'com.github.TuleSimon:xMaterialccp:2.18'
 }  
 ```    
 

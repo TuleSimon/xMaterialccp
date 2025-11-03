@@ -6,15 +6,15 @@ plugins {
 }
 
 group = "com.github.TuleSimon"
-version = "2.17"
+version = "2.18"
 
 android {
     namespace = "com.simon.xmaterialccp"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -81,7 +81,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.TuleSimon"
                 artifactId = "xMaterialccp"
-                version = "2.17"
+                version = "2.18"
             }
         }
     }
