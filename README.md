@@ -335,6 +335,17 @@ fun SelectCountryWithCountryCode() {
 * showErrorIcon if to show icon if an errror occurs,
 * flagShape to customize the shape of the flag
 * <b> colors </b> customized the colors of the picker
+customDialog Optional composable to override the default country picker dialog.
+*
+* If provided, the library will NOT render its default Dialog UI.
+* Instead, this composable will be invoked with:
+* - the full list of supported countries
+* - country selection callback
+* - dismiss callback
+*
+* This allows consumers to implement their own Dialog, ModalBottomSheet,
+* or any custom container while still reusing the library's data and logic.
+  */
 
 <h3> Using the Builder </h3>
 <h4>You can use the <b>dialogItemBuilder</b> to customize how the country items appear on the dialog</h4>
@@ -365,6 +376,52 @@ fun SelectCountryWithCountryCode() {
             Text(text = country.cNames)
         }
 
+    },
+    customDialog = { countries, onCountryPicked, onDismiss ->
+
+        ModalBottomSheet(
+            onDismissRequest = {
+                onDismiss()
+            }
+        ) {
+
+            Column {
+
+                // Search
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = { },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    placeholder = { Text("Search country") },
+                    singleLine = true
+                )
+
+                // Country list
+                LazyColumn {
+                    items(countries) { country ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onCountryPicked(country)
+                                }
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Image(
+                                painter = painterResource(getFlags(country.countryCode)),
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Spacer(Modifier.width(12.dp))
+                            Text(text = country.cNames)
+                        }
+                    }
+                }
+            }
+        }
     }
 )
 ```
