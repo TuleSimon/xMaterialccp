@@ -6,12 +6,118 @@ Jetpack Compose Material Country Code Picker
 
 ## Latest Version [![](https://jitpack.io/v/TuleSimon/xMaterialccp.svg)](https://jitpack.io/#TuleSimon/xMaterialccp)
 
-The latest version is <a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.18">
-2.18</a>
+The latest version is
+<a href="https://github.com/TuleSimon/xMaterialccp/releases/tag/v2.19">2.19</a>
 
-## WHAT IS NEW (2.18)
+## WHAT IS NEW (2.19)
 
-* **Fixed error arising with material icons being removed in new compose versions
+- Added support for **custom country picker dialog or bottom sheet**
+- Consumers can now fully override the default dialog UI
+- Library still provides the country list and selection callbacks
+- Fixes system bar / inset issues by allowing custom containers
+
+## 🔥 Custom Dialog / Bottom Sheet (NEW)
+
+You can now override the default country picker dialog by passing a
+`customDialog` composable.
+
+If `customDialog` is provided:
+
+- The default dialog **will not be shown**
+- You control the dialog or bottom sheet UI
+- The library provides:
+    - the list of supported countries
+    - a country selection callback
+    - a dismiss callback
+
+This is useful if you want to use:
+
+- `ModalBottomSheet`
+- A custom animated dialog
+- A container that properly respects system bars
+
+---
+
+### Custom Dialog Signature
+
+```kotlin
+customDialog: @Composable (
+countries: List<CountryData>,
+onCountryPicked: (CountryData) -> Unit,
+onDismiss: () -> Unit
+) -> Unit
+```
+
+### Example Usuage
+```Kotlin
+MaterialCountryCodePicker(
+    pickedCountry = {
+        phoneCode = it.countryPhoneCode
+        defaultLang = it.countryCode
+    },
+    defaultCountry = getLibCountries().single { it.countryCode == defaultLang },
+    text = phoneNumber.value,
+    onValueChange = { phoneNumber.value = it },
+
+    customDialog = { countries, onCountryPicked, onDismiss ->
+
+        ModalBottomSheet(
+            onDismissRequest = {
+                onDismiss()
+            }
+        ) {
+
+            Column {
+
+                // Optional search (fully controlled by you)
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = { },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    placeholder = { Text("Search country") },
+                    singleLine = true
+                )
+
+                // Country list
+                LazyColumn {
+                    items(countries) { country ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onCountryPicked(country)
+                                }
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Image(
+                                painter = painterResource(
+                                    id = getFlags(country.countryCode)
+                                ),
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Spacer(Modifier.width(12.dp))
+                            Text(text = country.cNames)
+                        }
+                    }
+                }
+            }
+        }
+    }
+)
+
+```
+
+## Notes
+
+* Search is not enforced by the library
+
+* You can implement filtering, animations, or pagination yourself
+
+* If customDialog is not provided, the default dialog is used automatically
 
 # CREDIT
 
@@ -293,7 +399,7 @@ Step 2. Add the dependency
 
 ```groovy
   dependencies {
-    implementation 'com.github.TuleSimon:xMaterialccp:2.18'
+    implementation 'com.github.TuleSimon:xMaterialccp:2.19'
 }  
 ```    
 

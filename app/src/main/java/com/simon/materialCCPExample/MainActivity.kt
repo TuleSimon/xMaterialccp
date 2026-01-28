@@ -7,13 +7,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -80,6 +84,7 @@ fun SelectCountryBody(modifier: Modifier) {
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectCountryWithCountryCode() {
     val context = LocalContext.current
@@ -89,7 +94,7 @@ fun SelectCountryWithCountryCode() {
     var isValidPhone by remember { mutableStateOf(true) }
 
     LaunchedEffect(key1 = true) {
-        setLocale(context,"en")
+        setLocale(context, "en")
     }
 
     MaterialCountryCodePicker(
@@ -139,18 +144,66 @@ fun SelectCountryWithCountryCode() {
         errorTextStyle = MaterialTheme.typography.bodySmall,
 
         errorModifier = Modifier.padding(top = 3.dp, start = 10.dp),
-        dialogItemBuilder = {country,onclick ->
+        dialogItemBuilder = { country, onclick ->
 
             Row(Modifier.clickable {
                 onclick()
             }) {
-                Image(painterResource(id = getFlags(
-                    country.countryCode
+                Image(
+                    painterResource(
+                        id = getFlags(
+                            country.countryCode
+                        )
+                    ), contentDescription = null
                 )
-                ) , contentDescription =null )
                 Text(text = country.cNames)
             }
+        },
+        customDialog = { countries, onCountryPicked, onDismiss ->
 
+            ModalBottomSheet(
+                onDismissRequest = {
+                    onDismiss()
+                }
+            ) {
+
+                Column {
+
+                    // Search
+                    OutlinedTextField(
+                        value = "",
+                        onValueChange = { },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        placeholder = { Text("Search country") },
+                        singleLine = true
+                    )
+
+                    // Country list
+                    LazyColumn {
+                        items(countries) { country ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        onCountryPicked(country)
+                                    }
+                                    .padding(16.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Image(
+                                    painter = painterResource(getFlags(country.countryCode)),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                                Spacer(Modifier.width(12.dp))
+                                Text(text = country.cNames)
+                            }
+                        }
+                    }
+                }
+            }
         }
     )
 
