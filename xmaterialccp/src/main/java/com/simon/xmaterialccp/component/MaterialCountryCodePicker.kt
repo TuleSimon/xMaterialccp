@@ -82,6 +82,16 @@ import com.simon.xmaterialccp.transformation.PhoneNumberTransformation
  * @param placeholder custom placeholder
  * @param dialogItemBuilder pass this value to be customized the country list item design on the dialog
  * @param colors the colors of the picker, customized the look and feel of the picker
+ * @param customDialog Optional composable to override the default country picker dialog.
+ *
+ * If provided, the library will NOT render its default Dialog UI.
+ * Instead, this composable will be invoked with:
+ * - the full list of supported countries
+ * - country selection callback
+ * - dismiss callback
+ *
+ * This allows consumers to implement their own Dialog, ModalBottomSheet,
+ * or any custom container while still reusing the library's data and logic.
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -116,17 +126,21 @@ fun MaterialCountryCodePicker(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
     flagShape: CornerBasedShape = RoundedCornerShape(0.dp),
-    @DrawableRes errorIcon:Int?=null ,
-    @DrawableRes dropDownIcon:Int?=null ,
-    showErrorIcon:Boolean=true,
-    errorText:String = stringResource(id = R.string.invalid_number),
-    errorModifier:Modifier = Modifier,
+    @DrawableRes errorIcon: Int? = null,
+    @DrawableRes dropDownIcon: Int? = null,
+    showErrorIcon: Boolean = true,
+    errorText: String = stringResource(id = R.string.invalid_number),
+    errorModifier: Modifier = Modifier,
     onDone: () -> Unit = {},
     placeholder: (@Composable () -> Unit)? = null,
     showClearIcon: Boolean = false,
     dialogItemBuilder: @Composable() ((data: CountryData, onClick: () -> Unit) -> Unit)? = null,
     @DrawableRes clearIcon: Int? = null,
-
+    customDialog: (@Composable (
+        countries: List<CountryData>,
+        onCountryPicked: (CountryData) -> Unit,
+        onDismiss: () -> Unit
+    ) -> Unit)? = null
     ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
     val textFieldValue = textFieldValueState.copy(text = text)
@@ -153,7 +167,7 @@ fun MaterialCountryCodePicker(
                     focusedBorderColor = if (error) colors.errorColor else if (isEnabled) colors.outlineColor
                     else colors.unfocusedOutlineColor,
                     unfocusedBorderColor = if (error) colors.errorColor else colors.unfocusedOutlineColor,
-                    cursorColor =  colors.cursorColor,
+                    cursorColor = colors.cursorColor,
                     focusedContainerColor = colors.surfaceColor
 
                 ),
@@ -168,9 +182,9 @@ fun MaterialCountryCodePicker(
                 singleLine = true,
                 visualTransformation = PhoneNumberTransformation(defaultCountry.countryCode.uppercase()),
                 placeholder = {
-                    if(placeholder!=null){
+                    if (placeholder != null) {
                         placeholder()
-                    } else{
+                    } else {
                         Text(
                             style = phonehintnumbertextstyle,
                             text = stringResource(id = getNumberHint(defaultCountry.countryCode))
@@ -211,6 +225,7 @@ fun MaterialCountryCodePicker(
                             flagShape = flagShape,
                             isEnabled = isEnabled,
                             dialogItemBuilder = dialogItemBuilder,
+                            customDialog = customDialog
                         )
                     }
                 },
@@ -218,7 +233,7 @@ fun MaterialCountryCodePicker(
                     if ((error.not() || showErrorIcon.not()) && showClearIcon && textFieldValue.text.isNotEmpty()) {
                         if (clearIcon == null) {
                             Icon(
-                                painterResource(R.drawable.outline_close_24) ,
+                                painterResource(R.drawable.outline_close_24),
                                 contentDescription = "Error",
                                 tint = colors.clearIconColor,
                                 modifier = Modifier.clickable {
